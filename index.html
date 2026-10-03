@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sélecteur de Flèche — Tir à l'Arc</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300..700&display=swap" rel="stylesheet" />
+    <style>
+        /* ────────────── TOKENS ────────────── */
+        
+         :root,
+        [data-theme="dark"],
+        [data-theme="light"] {
+            --color-bg: #0b0f14;
+            --color-surface: #111720;
+            --color-surface-2: #17212e;
+            --color-border: #223246;
+            --color-divider: #1b2838;
+            --color-text: #e6edf3;
+            --color-text-muted: #8b9bb0;
+            --color-text-faint: #52637a;
+            --color-primary: #00e5a3;
+            --color-primary-hover: #00c78e;
+            --color-primary-active: #00a877;
+            --color-primary-highlight: rgba(0, 229, 163, 0.14);
+            --color-accent: #0ea5e9;
+            --color-accent-hover: #0284c7;
+            --color-accent-highlight: rgba(14, 165, 233, 0.15);
+            --color-success: #00e5a3;
+            --color-success-bg: rgba(0, 229, 163, 0.12);
+            --color-warning: #f59e0b;
+            --color-warning-bg: rgba(245, 158, 11, 0.12);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.55);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.7);
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-full: 9999px;
+            --font-display: 'DM Sans', system-ui, sans-serif;
+            --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+            --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+            --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+            --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+            --text-2xl: clamp(2rem, 1.4rem + 1.8vw, 3rem);
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.25rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-10: 2.5rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        [data-theme="dark"] {
+            --color-bg: #13120e;
+            --color-surface: #1a1916;
+            --color-surface-2: #201f1b;
+            --color-border: #38362f;
+            --color-divider: #2c2b26;
+            --color-text: #e8e5de;
+            --color-text-muted: #908c83;
+            --color-text-faint: #5c5a54;
+            --color-primary: #52a87a;
+            --color-primary-hover: #3d9066;
+            --color-primary-active: #2a7550;
+            --color-primary-highlight: #1e3d2d;
+            --color-accent: #c8834a;
+            --color-accent-hover: #da9a65;
+            --color-accent-highlight: #3d2a1a;
+            --color-success: #52a87a;
+            --color-success-bg: #1a3325;
+            --color-warning: #f0aa2a;
+            --color-warning-bg: #3d2e0c;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+             :root:not([data-theme]) {
+                --color-bg: #13120e;
+                --color-surface: #1a1916;
+                --color-surface-2: #201f1b;
+                --color-border: #38362f;
+                --color-divider: #2c2b26;
+                --color-text: #e8e5de;
+                --color-text-muted: #908c83;
+                --color-text-faint: #5c5a54;
+                --color-primary: #52a87a;
+                --color-primary-hover: #3d9066;
+                --color-primary-active: #2a7550;
+                --color-primary-highlight: #1e3d2d;
+                --color-accent: #c8834a;
+                --color-accent-hover: #da9a65;
+                --color-accent-highlight: #3d2a1a;
+                --color-success: #52a87a;
+                --color-success-bg: #1a3325;
+                --color-warning: #f0aa2a;
+                --color-warning-bg: #3d2e0c;
+                --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+                --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+                --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45);
+            }
+        }
+        /* ────────────── BASE ────────────── */
+        
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            min-height: 100dvh;
+            font-family: var(--font-body);
+            font-size: var(--text-base);
+            color: var(--color-text);
+            background: var(--color-bg);
+            background-image: linear-gradient(rgba(34, 50, 70, 0.25) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 50, 70, 0.25) 1px, transparent 1px);
+            background-size: 32px 32px;
+            line-height: 1.6;
+        }
+        
+        button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font: inherit;
+            color: inherit;
+        }
+        
+        input,
+        select {
+            font: inherit;
+            color: inherit;
+        }
+        
+        img {
+            display: block;
+            max-width: 100%;
+        }
+        /* ────────────── LAYOUT ────────────── */
+        
+        .app {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* ────────────── HEADER ────────────── */
+        
+        header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: var(--space-4) var(--space-6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .logo svg {
+            flex-shrink: 0;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        
+        .logo-name {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--color-text);
+        }
+        
+        .logo-tagline {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            letter-spacing: 0.04em;
+        }
+        
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-muted);
+            transition: background var(--transition), color var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            background: var(--color-divider);
+            color: var(--color-text);
+        }
+        /* ────────────── MAIN ────────────── */
+        
+        main {
+            flex: 1;
+            padding: var(--space-8) var(--space-6);
+            max-width: 1320px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .editorial-spread {
+            display: grid;
+            grid-template-columns: minmax(360px, 420px) 1fr;
+            gap: var(--space-8);
+            align-items: start;
+        }
+        
+        @media (max-width: 980px) {
+            .editorial-spread {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+        }
+        
+        .spread-col-left {
+            position: sticky;
+            top: calc(64px + var(--space-4));
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+        }
+        
+        @media (max-width: 980px) {
+            .spread-col-left {
+                position: static;
+            }
+        }
+        
+        .spread-col-right {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            min-width: 0;
+        }
+        
+        .editorial-banner {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .editorial-tag {
+            font-size: var(--text-xs);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-primary);
+            margin-bottom: var(--space-2);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .editorial-tag::after {
+            content: "";
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--color-primary);
+        }
+        
+        .editorial-schematic {
+            margin-top: var(--space-4);
+            background: var(--color-surface-2);
+            border: 1.5px dashed var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-3) var(--space-4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: var(--space-10);
+        }
+        
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 800;
+            color: var(--color-text);
+            line-height: 1.15;
+            margin-bottom: var(--space-3);
+        }
+        
+        .hero p {
+            font-size: var(--text-base);
+            color: var(--color-text-muted);
+            max-width: 52ch;
+            margin: 0 auto;
+        }
+        /* ────────────── CARD ────────────── */
+        
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-6);
+            scroll-margin-top: calc(var(--space-16) + var(--space-4));
+        }
+        
+        .card-title {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-6);
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .card-title svg {
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+        /* ────────────── FORM ────────────── */
+        
+        .form-grid {
+            display: grid;
+            gap: var(--space-5);
+        }
+        
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+        }
+
+        .field[hidden] {
+            display: none;
+        }
+        
+        .field label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text);
+            letter-spacing: 0.01em;
+        }
+        
+        .field-hint {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+            margin-top: calc(-1 * var(--space-1));
+        }
+        
+        .input-row {
+            display: flex;
+            gap: var(--space-2);
+            align-items: stretch;
+        }
+        
+        input[type="number"] {
+            flex: 1;
+            padding: var(--space-3) var(--space-4);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface-2);
+            color: var(--color-text);
+            font-size: var(--text-base);
+            font-weight: 500;
+            transition: border-color var(--transition), box-shadow var(--transition);
+            outline: none;
+            -moz-appearance: textfield;
+        }
+        
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        
+        input[type="number"]:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-highlight);
+        }
+        
+        input[type="number"].error {
+            border-color: #c0392b;
+            box-shadow: 0 0 0 3px #fde8e8;
+        }
+        
+        .unit-toggle {
+            display: flex;
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--color-surface-2);
+        }
+        
+        .unit-toggle button {
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            transition: background var(--transition), color var(--transition);
+            border-right: 1px solid var(--color-border);
+            min-width: 52px;
+            text-align: center;
+        }
+        
+        .unit-toggle button:last-child {
+            border-right: none;
+        }
+        
+        .unit-toggle button.active {
+            background: var(--color-primary);
+            color: #fff;
+        }
+        
+        .unit-toggle button:not(.active):hover {
+            background: var(--color-divider);
+            color: var(--color-text);
+        }
+        /* Bow type segmented control */
+        
+        .bow-type-toggle {
+            display: flex;
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--color-surface-2);
+        }
+        
+        .bow-type-toggle button {
+            flex: 1;
+            padding: var(--space-3) var(--space-4);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            transition: background var(--transition), color var(--transition);
+            border-right: 1px solid var(--color-border);
+            text-align: center;
+        }
+        
+        .bow-type-toggle button:last-child {
+            border-right: none;
+        }
+        
+        .bow-type-toggle button.active {
+            background: var(--color-accent);
+            color: #fff;
+        }
+        
+        .bow-type-toggle button:not(.active):hover {
+            background: var(--color-divider);
+            color: var(--color-text);
+        }
+        /* Point weight field */
+        
+        .point-weight-group {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+        }
+        
+        .point-weight-group input {
+            flex: 1;
+        }
+        
+        .point-weight-unit {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            white-space: nowrap;
+        }
+        
+        .cta-btn {
+            width: 100%;
+            padding: var(--space-4) var(--space-6);
+            background: var(--color-primary);
+            color: #0b0f14;
+            font-size: var(--text-base);
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+            box-shadow: var(--shadow-sm);
+            margin-top: var(--space-2);
+            letter-spacing: 0.01em;
+        }
+        
+        .cta-btn:hover {
+            background: var(--color-primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .cta-btn:active {
+            transform: translateY(0);
+        }
+        /* ────────────── RESULT ────────────── */
+        
+        .result-card {
+            display: none;
+        }
+        
+        .result-card.visible {
+            display: block;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .result-item {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5) var(--space-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+        }
+        
+        .result-item.primary {
+            background: var(--color-success-bg);
+            border-color: var(--color-primary);
+        }
+        
+        .result-label {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-text-muted);
+        }
+        
+        .result-value {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-text);
+            line-height: 1;
+        }
+        
+        .result-item.primary .result-value {
+            color: var(--color-primary);
+        }
+        
+        .result-sub {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
+        
+        .notice-box {
+            background: var(--color-warning-bg);
+            border: 1px solid var(--color-warning);
+            border-radius: var(--radius-md);
+            padding: var(--space-4) var(--space-5);
+            font-size: var(--text-sm);
+            color: var(--color-text);
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+        }
+        
+        .notice-box svg {
+            flex-shrink: 0;
+            color: var(--color-warning);
+            margin-top: 2px;
+        }
+        
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+        }
+        
+        .info-list li {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            display: flex;
+            gap: var(--space-2);
+            align-items: flex-start;
+        }
+        
+        .info-list li::before {
+            content: '→';
+            color: var(--color-primary);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        /* ────────────── TABLE ────────────── */
+        
+        .table-section {
+            margin-top: var(--space-8);
+        }
+        
+        .table-title {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-3);
+        }
+        
+        .table-wrap {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            max-width: 100%;
+        }
+        
+        .table-wrap table {
+            min-width: 100%;
+            width: max-content;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: var(--text-sm);
+        }
+        
+        th,
+        td {
+            padding: var(--space-2) var(--space-3);
+            text-align: center;
+            border-bottom: 1px solid var(--color-divider);
+            border-right: 1px solid var(--color-divider);
+            white-space: nowrap;
+        }
+        
+        th:last-child,
+        td:last-child {
+            border-right: none;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        th {
+            background: var(--color-surface-2);
+            font-weight: 700;
+            font-size: var(--text-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+        }
+        
+        th:first-child {
+            text-align: left;
+            min-width: 100px;
+            position: sticky;
+            left: 0;
+            z-index: 2;
+        }
+        
+        td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: var(--color-text);
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            background: var(--color-surface-2);
+        }
+        
+        tr:last-child td:first-child {
+            border-bottom: none;
+        }
+        
+        td.highlight {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+            font-weight: 800;
+            border-radius: 4px;
+        }
+        
+        [data-theme="dark"] td.highlight {
+            background: var(--color-primary-highlight);
+            color: var(--color-primary);
+        }
+        /* ────────────── ERROR ────────────── */
+        
+        .error-msg {
+            font-size: var(--text-xs);
+            color: #c0392b;
+            margin-top: var(--space-1);
+            display: none;
+        }
+        
+        .error-msg.visible {
+            display: block;
+        }
+        /* ────────────── FOOTER ────────────── */
+        
+        footer {
+            text-align: center;
+            padding: var(--space-8) var(--space-6);
+            font-size: var(--text-xs);
+            color: var(--color-text-faint);
+            border-top: 1px solid var(--color-divider);
+        }
+        
+        footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        /* ────────────── ARROW CATALOG ────────────── */
+        
+        .arrow-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-2);
+            flex: 1;
+            min-width: 140px;
+        }
+        
+        .filter-group label {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text);
+        }
+        
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+        }
+        
+        .pill {
+            padding: var(--space-2) var(--space-3);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-text-muted);
+            background: var(--color-surface-2);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        
+        .pill:hover {
+            border-color: var(--color-primary);
+            color: var(--color-text);
+        }
+        
+        .pill.active {
+            background: var(--color-primary);
+            color: #0b0f14;
+            border-color: var(--color-primary);
+        }
+        
+        .arrow-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: var(--space-4);
+        }
+        
+        .arrow-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: var(--space-3);
+            padding: var(--space-4) var(--space-5);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            background: var(--color-surface-2);
+            transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+        }
+        
+        .arrow-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .arrow-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--space-2);
+        }
+        
+        .arrow-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .arrow-card.match {
+            border-color: var(--color-primary);
+            background: var(--color-success-bg);
+        }
+        
+        .arrow-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .arrow-brand {
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+        }
+        
+        .arrow-model {
+            font-size: var(--text-base);
+            font-weight: 700;
+            color: var(--color-text);
+            line-height: 1.2;
+        }
+        
+        .arrow-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2);
+            margin-top: var(--space-2);
+        }
+        
+        .arrow-spec {
+            font-size: var(--text-xs);
+            padding: 2px var(--space-2);
+            border-radius: var(--radius-sm);
+            background: var(--color-divider);
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+        
+        .arrow-card.match .arrow-spec.compatible {
+            background: var(--color-primary);
+            color: #0b0f14;
+            font-weight: 700;
+        }
+        
+        .arrow-price {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        
+        .arrow-price-value {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--color-text);
+            line-height: 1;
+        }
+        
+        .arrow-price-unit {
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
+        
+        .arrow-empty {
+            text-align: center;
+            padding: var(--space-8);
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+        }
+        /* ────────────── PDF BUTTON ────────────── */
+        
+        .pdf-btn {
+            width: 100%;
+            padding: var(--space-3) var(--space-5);
+            background: var(--color-accent);
+            color: #fff;
+            font-size: var(--text-sm);
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            transition: background var(--transition), transform var(--transition);
+            box-shadow: var(--shadow-sm);
+            margin-top: var(--space-4);
+        }
+        
+        .pdf-btn:hover {
+            background: var(--color-accent-hover);
+            transform: translateY(-1px);
+        }
+        
+        .pdf-btn:active {
+            transform: translateY(0);
+        }
+        /* ────────────── PRINT / PDF ────────────── */
+        
+        @media print {
+            header,
+            footer,
+            .theme-toggle,
+            .cta-btn,
+            .pdf-btn,
+            .bow-type-toggle,
+            .unit-toggle,
+            input,
+            select,
+            .pill,
+            .filter-group label,
+            .form-grid,
+            .field,
+            .field-hint,
+            .error-msg,
+            #form-card {
+                display: none !important;
+            }
+            body {
+                background: #fff;
+                color: #000;
+                font-size: 11pt;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
+            }
+            main {
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .hero h1 {
+                font-size: 18pt;
+            }
+            .hero p {
+                font-size: 10pt;
+            }
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .result-value {
+                font-size: 14pt;
+            }
+            .arrow-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc;
+            }
+            .arrow-card.match {
+                background: #e8f5e9 !important;
+            }
+            .arrow-spec {
+                background: #f0f0f0 !important;
+                color: #333 !important;
+            }
+            .arrow-card.match .arrow-spec.compatible {
+                background: #2d6a4f !important;
+                color: #fff !important;
+            }
+            .notice-box {
+                background: #fff3e0 !important;
+                border: 1px solid #e6a23c !important;
+            }
+            .info-list li {
+                color: #333 !important;
+            }
+            a {
+                color: #2d6a4f !important;
+            }
+            .print-summary {
+                display: block !important;
+                margin-bottom: var(--space-4);
+            }
+        }
+        
+        .print-summary {
+            display: none;
+        }
+        /* ────────────── RESPONSIVE ────────────── */
+        
+        @media (max-width: 520px) {
+            .card {
+                padding: var(--space-5);
+            }
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+            main {
+                padding: var(--space-6) var(--space-4);
+            }
+            header {
+                padding: var(--space-3) var(--space-4);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+
+        <!-- HEADER -->
+        <header>
+            <div class="logo">
+                <!-- Bow + Arrow SVG Logo -->
+                <svg width="38" height="38" viewBox="0 0 38 38" fill="none" aria-label="Logo tir à l'arc">
+        <circle cx="19" cy="19" r="18" fill="var(--color-primary)" opacity="0.12"/>
+        <!-- Arc (bow) -->
+        <path d="M10 8 Q6 19 10 30" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- Corde (string) -->
+        <line x1="10" y1="8" x2="10" y2="30" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Flèche -->
+        <line x1="10" y1="19" x2="30" y2="19" stroke="var(--color-text)" stroke-width="2" stroke-linecap="round"/>
+        <!-- Pointe -->
+        <path d="M30 19 L26 16.5 L27.5 19 L26 21.5 Z" fill="var(--color-accent)"/>
+        <!-- Encoche -->
+        <path d="M10 19 L8 17 M10 19 L8 21" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+                <div class="logo-text">
+                    <span class="logo-name">FlèchOptim</span>
+                    <span class="logo-tagline">Sélecteur de flèches</span>
+                </div>
+            </div>
+            <button class="theme-toggle" data-theme-toggle aria-label="Basculer le thème">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+        </header>
+
+        <!-- MAIN -->
+        <main>
+            <div class="editorial-spread">
+                <!-- SPREAD GAUCHE : ÉDITORIAL & PARAMÈTRES (INSPIRÉ DE LA PAGE GAUCHE DU WIREFRAME) -->
+                <aside class="spread-col-left">
+                    <div class="editorial-banner">
+                        <div class="editorial-tag">Guide &amp; Configuration</div>
+                        <h1 style="font-family:var(--font-display);font-size:clamp(1.5rem, 1.2rem + 0.9vw, 2.1rem);font-weight:800;color:var(--color-text);line-height:1.15;margin-bottom:var(--space-2);">
+                            Choisissez la flèche idéale pour votre arc
+                        </h1>
+                        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.5;">
+                            Configurez la géométrie de tir (puissance, allonge, masse de pointe) pour déterminer la flexibilité dynamique optimale.
+                        </p>
+
+                        <!-- Schéma géométrique inspiré du bloc d'illustration du wireframe -->
+                        <div class="editorial-schematic" aria-hidden="true">
+                            <svg viewBox="0 0 340 70" width="100%" height="70" fill="none">
+              <path d="M 20 35 Q 170 15 320 35" stroke="var(--color-primary)" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.6"/>
+              <line x1="20" y1="35" x2="320" y2="35" stroke="var(--color-text)" stroke-width="2"/>
+              <!-- Pointe -->
+              <polygon points="320,35 305,30 308,35 305,40" fill="var(--color-accent)"/>
+              <!-- Nock -->
+              <line x1="20" y1="31" x2="16" y2="27" stroke="var(--color-accent)" stroke-width="2"/>
+              <line x1="20" y1="39" x2="16" y2="43" stroke="var(--color-accent)" stroke-width="2"/>
+              <!-- Labels -->
+              <text x="170" y="55" fill="var(--color-text-muted)" font-size="11" text-anchor="middle" font-weight="600">Longueur du tube / Allonge réelle</text>
+              <text x="170" y="16" fill="var(--color-primary)" font-size="11" text-anchor="middle" font-weight="700">Spine statique &amp; flexion</text>
+            </svg>
+                        </div>
+                    </div>
+
+                    <!-- FORMULAIRE -->
+                    <div class="card" id="form-card" style="margin-bottom:0;">
+                        <div class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>                            Paramètres de l'arc
+                        </div>
+                        <div class="form-grid">
+
+                            <!-- Type d'arc -->
+                            <div class="field">
+                                <label>Type d'arc</label>
+                                <div class="bow-type-toggle">
+                                    <button id="btn-recurve" class="active" onclick="setBowType('recurve')">Arc classique</button>
+                                    <button id="btn-compound" onclick="setBowType('compound')">Arc à poulies</button>
+                                </div>
+                            </div>
+
+                            <!-- Puissance -->
+                            <div class="field">
+                                <label for="draw-weight">Puissance de l'arc</label>
+                                <div class="input-row">
+                                    <input type="number" id="draw-weight" min="10" max="100" step="1" placeholder="ex. 40" />
+                                    <div class="unit-toggle" style="border-radius:var(--radius-md);pointer-events:none;background:var(--color-divider);">
+                                        <button style="background:none;color:var(--color-text-muted);cursor:default;min-width:52px;" disabled>lbs</button>
+                                    </div>
+                                </div>
+                                <span class="field-hint">En livres (lbs), mesurée à votre allonge réelle</span>
+                                <span class="error-msg" id="err-weight">Veuillez entrer une puissance entre 10 et 100 lbs.</span>
+                            </div>
+
+                            <!-- Vitesse de l'arc à poulies -->
+                            <div class="field" id="compound-speed-field" hidden>
+                                <label for="bow-speed">Vitesse de l'arc</label>
+                                <div class="input-row">
+                                    <input type="number" id="bow-speed" min="100" max="500" step="1" placeholder="ex. 320" />
+                                    <div class="unit-toggle" style="border-radius:var(--radius-md);pointer-events:none;background:var(--color-divider);">
+                                        <button style="background:none;color:var(--color-text-muted);cursor:default;min-width:52px;" disabled>fps</button>
+                                    </div>
+                                </div>
+                                <span class="field-hint">Vitesse mesurée en pieds par seconde. Dès 300 fps, +1 lb équivalente par tranche de 10 fps.</span>
+                                <span class="error-msg" id="err-speed">Veuillez entrer une vitesse entre 100 et 500 fps.</span>
+                            </div>
+
+                            <!-- Allonge -->
+                            <div class="field">
+                                <label for="draw-length">Allonge / longueur de flèche</label>
+                                <div class="input-row">
+                                    <input type="number" id="draw-length" min="1" step="0.5" placeholder="ex. 28" />
+                                    <div class="unit-toggle">
+                                        <button id="unit-in" class="active" onclick="setUnit('in')">po</button>
+                                        <button id="unit-cm" onclick="setUnit('cm')">cm</button>
+                                    </div>
+                                </div>
+                                <span class="field-hint" id="length-hint">En pouces (po) — pour plus de précision, utilisez la longueur réelle du tube du creux d'encoche au bout du tube, pas seulement l'allonge AMO.</span>
+                                <span class="error-msg" id="err-length">Veuillez entrer une allonge valide.</span>
+                            </div>
+
+                            <!-- Poids de pointe (optionnel) -->
+                            <div class="field">
+                                <label for="point-weight">Poids de pointe <span style="font-weight:400;color:var(--color-text-muted)">(optionnel)</span></label>
+                                <div class="point-weight-group">
+                                    <input type="number" id="point-weight" min="50" max="200" step="5" placeholder="100" />
+                                    <span class="point-weight-unit">grains</span>
+                                </div>
+                                <span class="field-hint">Par défaut : 100 gr. Modifie la raideur recommandée.</span>
+                            </div>
+
+                            <button class="cta-btn" onclick="calculate()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Calculer le spine recommandé
+        </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- SPREAD DROIT : ANALYSE, TABLEAU & CATALOGUE (PAGE DROITE DU WIREFRAME) -->
+                <section class="spread-col-right">
+
+                    <!-- RÉSULTAT -->
+                    <div class="card result-card" id="result-card">
+                        <div class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Résultat — Spine recommandé
+                        </div>
+                        <div style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);margin-top:calc(-1 * var(--space-4));">Tableau indicatif de spine, inspiré des tableaux fabricants — à confirmer avec le tableau officiel du fabricant du tube choisi.</div>
+
+                        <div class="result-grid">
+                            <div class="result-item primary" id="res-spine-item">
+                                <span class="result-label">Spine (rigidité)</span>
+                                <span class="result-value" id="res-spine">—</span>
+                                <span class="result-sub" id="res-spine-sub">Valeur statique Easton</span>
+                            </div>
+                            <div class="result-item" id="res-point-item">
+                                <span class="result-label">Poids de pointe</span>
+                                <span class="result-value" id="res-point">—</span>
+                                <span class="result-sub" id="res-point-sub">en grains (gr)</span>
+                            </div>
+                            <div class="result-item" id="res-length-item">
+                                <span class="result-label">Longueur flèche</span>
+                                <span class="result-value" id="res-length">—</span>
+                                <span class="result-sub">Allonge convertie en pouces</span>
+                            </div>
+                            <div class="result-item" id="res-weight-item">
+                                <span class="result-label">Puissance lue</span>
+                                <span class="result-value" id="res-weight">—</span>
+                                <span class="result-sub">Après correction pointe</span>
+                            </div>
+                        </div>
+
+                        <div class="notice-box" id="result-notice">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            <span id="notice-text"></span>
+                        </div>
+
+                        <ul class="info-list" id="result-tips"></ul>
+
+                        <!-- Table de spine -->
+                        <div class="table-section">
+                            <div class="table-title">Tableau de sélection complet</div>
+                            <div class="table-wrap" id="spine-table-wrap"></div>
+                        </div>
+                    </div>
+
+                    <!-- CATALOGUE DE FLÈCHES + PDF -->
+                    <div class="card" id="arrow-catalog-card">
+                        <div class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg> Catalogue de flèches
+                        </div>
+                        <div style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);margin-top:calc(-1 * var(--space-4));">Filtrez par prix, matériau et diamètre. Les flèches compatibles avec votre spine recommandé sont mises en évidence.</div>
+
+                        <!-- PDF EXPORT -->
+                        <button class="pdf-btn" onclick="window.print()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Exporter en PDF
+      </button>
+
+                        <!-- RÉSUMÉ IMPRESSION -->
+                        <div class="print-summary" id="print-summary"></div>
+
+                        <!-- FILTRES -->
+                        <div class="arrow-filters">
+                            <div class="filter-group">
+                                <label>Tranche de prix</label>
+                                <div class="filter-pills" id="price-pills">
+                                    <button class="pill active" onclick="setFilter('price','all')">Tous</button>
+                                    <button class="pill" onclick="setFilter('price','eco')">Éco &lt;6€</button>
+                                    <button class="pill" onclick="setFilter('price','mid')">Moyen 6-10€</button>
+                                    <button class="pill" onclick="setFilter('price','premium')">Premium &gt;10€</button>
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label>Matériau</label>
+                                <div class="filter-pills" id="material-pills">
+                                    <button class="pill active" onclick="setFilter('material','all')">Tous</button>
+                                    <button class="pill" onclick="setFilter('material','carbone')">Carbone</button>
+                                    <button class="pill" onclick="setFilter('material','alu')">Aluminium</button>
+                                    <button class="pill" onclick="setFilter('material','hybrid')">Carbone/Alu</button>
+                                    <button class="pill" onclick="setFilter('material','bois')">Bois</button>
+                                </div>
+                            </div>
+                            <div class="filter-group">
+                                <label>Diamètre</label>
+                                <div class="filter-pills" id="diameter-pills">
+                                    <button class="pill active" onclick="setFilter('diameter','all')">Tous</button>
+                                    <button class="pill" onclick="setFilter('diameter','micro')">Micro &lt;5.5mm</button>
+                                    <button class="pill" onclick="setFilter('diameter','petit')">Petit 5.5-6.5mm</button>
+                                    <button class="pill" onclick="setFilter('diameter','standard')">Standard 6.5-8mm</button>
+                                    <button class="pill" onclick="setFilter('diameter','gros')">Gros &gt;8mm</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arrow-list" id="arrow-list"></div>
+
+                        <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-4);">
+                            Prix indicatifs par tube, variables selon boutique, spine et composants. Sources produit :
+                            <a href="https://eastonarchery.com/" target="_blank" rel="noopener">Easton</a>,
+                            <a href="https://www.dutchbowstore.com/" target="_blank" rel="noopener">DutchBowStore</a>,
+                            <a href="https://www.goldtip.com/" target="_blank" rel="noopener">Gold Tip</a>,
+                            <a href="https://victoryarchery.com/" target="_blank" rel="noopener">Victory</a>.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <footer>
+            <p>
+                Basé sur les tableaux Easton Arrow Selection (recurve &amp; compound) ·
+                <a href="https://laflechegasconne.fr/2024/03/04/choix-de-la-fleche/" target="_blank" rel="noopener">La Flèche Gasconne</a> ·
+                <a href="https://spineparadox.fr/fleches/" target="_blank" rel="noopener">Spine Paradox</a> ·
+                <a href="https://donutarchery.com/blogs/article-du-blog/bien-choisir-son-spine-de-fleche" target="_blank" rel="noopener">Donut Archery</a>
+            </p>
+            <p style="margin-top:var(--space-2)">Ce sélecteur donne une recommandation indicative — confirmez toujours avec le tableau du fabricant de votre flèche et un test de bare shaft.</p>
+        </footer>
+    </div>
+
+    <script>
+        /* ──────────────────────────────────────────────
+           SPINE DATA (Easton-style, source: La Flèche Gasconne + Spine Paradox)
+           Format: { drawWeightRange: [min, max], bowType: 'recurve'|'compound', lengths: { 23:spine, 24:spine, ... } }
+           ────────────────────────────────────────────── */
+
+        // Recurve spine table (lbs)
+        // Source: Spine Paradox / Easton recurve selection
+        // Columns: arrow length in inches (23–32)
+        const RECURVE_TABLE = [{
+            wMin: 16,
+            wMax: 21,
+            spines: {
+                23: 2000,
+                24: 1800,
+                25: 1500,
+                26: 1300,
+                27: 1100,
+                28: 900,
+                29: null,
+                30: null,
+                31: null,
+                32: null
+            }
+        }, {
+            wMin: 22,
+            wMax: 28,
+            spines: {
+                23: 1500,
+                24: 1300,
+                25: 1100,
+                26: 1000,
+                27: 900,
+                28: 800,
+                29: 700,
+                30: 650,
+                31: null,
+                32: null
+            }
+        }, {
+            wMin: 29,
+            wMax: 34,
+            spines: {
+                23: 1300,
+                24: 1100,
+                25: 1000,
+                26: 900,
+                27: 800,
+                28: 700,
+                29: 650,
+                30: 600,
+                31: null,
+                32: null
+            }
+        }, {
+            wMin: 35,
+            wMax: 39,
+            spines: {
+                23: 1100,
+                24: 1000,
+                25: 900,
+                26: 800,
+                27: 700,
+                28: 700,
+                29: 650,
+                30: 600,
+                31: 550,
+                32: 500
+            }
+        }, {
+            wMin: 40,
+            wMax: 45,
+            spines: {
+                23: 1000,
+                24: 900,
+                25: 800,
+                26: 700,
+                27: 700,
+                28: 650,
+                29: 600,
+                30: 550,
+                31: 500,
+                32: 450
+            }
+        }, {
+            wMin: 46,
+            wMax: 51,
+            spines: {
+                23: 900,
+                24: 800,
+                25: 700,
+                26: 700,
+                27: 650,
+                28: 600,
+                29: 550,
+                30: 500,
+                31: 450,
+                32: 400
+            }
+        }, {
+            wMin: 52,
+            wMax: 57,
+            spines: {
+                23: 800,
+                24: 700,
+                25: 700,
+                26: 650,
+                27: 600,
+                28: 550,
+                29: 500,
+                30: 450,
+                31: 400,
+                32: 350
+            }
+        }, {
+            wMin: 58,
+            wMax: 63,
+            spines: {
+                23: 700,
+                24: 700,
+                25: 650,
+                26: 600,
+                27: 550,
+                28: 500,
+                29: 450,
+                30: 400,
+                31: 350,
+                32: null
+            }
+        }, {
+            wMin: 64,
+            wMax: 69,
+            spines: {
+                23: 700,
+                24: 650,
+                25: 600,
+                26: 550,
+                27: 500,
+                28: 450,
+                29: 400,
+                30: 350,
+                31: null,
+                32: null
+            }
+        }, {
+            wMin: 70,
+            wMax: 75,
+            spines: {
+                23: 650,
+                24: 600,
+                25: 550,
+                26: 450,
+                27: 400,
+                28: 400,
+                29: 350,
+                30: null,
+                31: null,
+                32: null
+            }
+        }, ];
+
+        // Compound spine table (lbs) — same structure, different lbs ranges
+        // Source: La Flèche Gasconne + Donut Archery corrections (+5–10 lbs vs recurve equivalent)
+        const COMPOUND_TABLE = [{
+            wMin: 28,
+            wMax: 34,
+            spines: {
+                24: 1400,
+                25: 1250,
+                26: 1100,
+                27: 1000,
+                28: 850,
+                29: 780,
+                30: 720,
+                31: 670
+            }
+        }, {
+            wMin: 35,
+            wMax: 40,
+            spines: {
+                24: 1250,
+                25: 1100,
+                26: 1000,
+                27: 900,
+                28: 800,
+                29: 720,
+                30: 670,
+                31: 620
+            }
+        }, {
+            wMin: 41,
+            wMax: 45,
+            spines: {
+                24: 1100,
+                25: 1000,
+                26: 900,
+                27: 800,
+                28: 720,
+                29: 670,
+                30: 620,
+                31: 570
+            }
+        }, {
+            wMin: 46,
+            wMax: 50,
+            spines: {
+                24: 1000,
+                25: 900,
+                26: 780,
+                27: 720,
+                28: 670,
+                29: 620,
+                30: 570,
+                31: 520
+            }
+        }, {
+            wMin: 51,
+            wMax: 55,
+            spines: {
+                24: 1000,
+                25: 780,
+                26: 720,
+                27: 670,
+                28: 620,
+                29: 570,
+                30: 520,
+                31: 470
+            }
+        }, {
+            wMin: 56,
+            wMax: 60,
+            spines: {
+                24: 780,
+                25: 720,
+                26: 700,
+                27: 630,
+                28: 570,
+                29: 520,
+                30: 470,
+                31: 430
+            }
+        }, {
+            wMin: 61,
+            wMax: 65,
+            spines: {
+                24: 700,
+                25: 650,
+                26: 600,
+                27: 560,
+                28: 510,
+                29: 460,
+                30: 420,
+                31: 380
+            },
+            estimated: true
+        }, {
+            wMin: 66,
+            wMax: 70,
+            spines: {
+                24: 650,
+                25: 600,
+                26: 550,
+                27: 500,
+                28: 450,
+                29: 410,
+                30: 370,
+                31: 330
+            },
+            estimated: true
+        }, {
+            wMin: 71,
+            wMax: 80,
+            spines: {
+                24: 600,
+                25: 550,
+                26: 500,
+                27: 450,
+                28: 400,
+                29: 360,
+                30: 320,
+                31: 300
+            },
+            estimated: true
+        }, ];
+
+        // Point weight → spine correction
+        // Source: Donut Archery: +3 lbs per 25 grains above 100 gr
+        // (heavier point = effectively need stiffer spine = use higher lbs to look up)
+        function correctedWeight(drawWeight, pointWeight) {
+            const diff = (pointWeight - 100) / 25 * 3;
+            return drawWeight + diff;
+        }
+
+        function speedWeightCorrection(speedFps) {
+            return Math.max(0, speedFps - 300) / 10;
+        }
+
+        // Point weight recommendation by spine value
+        function recommendedPointWeight(spine) {
+            if (spine >= 1000) return {
+                min: 50,
+                max: 80,
+                default: 70
+            };
+            if (spine >= 700) return {
+                min: 80,
+                max: 100,
+                default: 90
+            };
+            if (spine >= 400) return {
+                min: 100,
+                max: 120,
+                default: 100
+            };
+            return {
+                min: 100,
+                max: 125,
+                default: 100
+            };
+        }
+
+        /* ──────────────────────────────────────────────
+           ARROW CATALOG — Prix indicatifs par tube (€)
+           Sources: Easton official, DutchBowStore, Gold Archery FR, Donut Archery,
+           Archery-Attack DE, BogensportWelt DE, Bogentandler AT (2024-2025)
+           ────────────────────────────────────────────── */
+        const ARROW_CATALOG = [
+            // ── ÉCONOMIQUE ──
+            {
+                brand: 'Easton',
+                model: 'XX75 Jazz',
+                material: 'alu',
+                materialLabel: 'Aluminium',
+                diameterMm: 7.5,
+                diameterClass: 'standard',
+                spines: [1214, 1413, 1416, 1516, 1616, 1716, 1816, 1916, 2016],
+                spineType: 'alu',
+                priceEur: 4.5,
+                priceBand: 'eco',
+                usage: ['recurve', 'debutant'],
+                source: 'https://dutchbowstore.de/Easton-XX75-Jazz-Aluminium-Schaft/151605.1'
+            }, {
+                brand: 'Skylon',
+                model: 'Radius ID4.2',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 6.2,
+                diameterClass: 'standard',
+                spines: [500, 600, 700, 800, 900, 1000, 1200],
+                spineType: 'carbon',
+                priceEur: 5.0,
+                priceBand: 'eco',
+                usage: ['recurve', 'compound', 'debutant'],
+                source: 'https://www.dutchbowstore.com/Arrows-Parts/Arrow-Shafts/Carbon-Shafts/'
+            }, {
+                brand: 'Skylon',
+                model: 'Instec ID5.2',
+                material: 'carbone',
+                materialLabel: 'Carbone 24T',
+                diameterMm: 7.0,
+                diameterClass: 'standard',
+                spines: [400, 500, 600, 700, 800, 900, 1000],
+                spineType: 'carbon',
+                priceEur: 5.95,
+                priceBand: 'eco',
+                usage: ['recurve', 'compound', 'debutant'],
+                source: 'https://www.dutchbowstore.com/Arrows-Parts/Arrow-Shafts/Carbon-Shafts/'
+            }, {
+                brand: 'Easton',
+                model: 'Bowhunter',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 7.3,
+                diameterClass: 'standard',
+                spines: [340, 400, 500, 600],
+                spineType: 'carbon',
+                priceEur: 7.0,
+                priceBand: 'mid',
+                usage: ['compound', 'chasse'],
+                source: 'https://eastonarchery.com/arrows_/bowhunter/'
+            },
+            // ── MOYEN ──
+            {
+                brand: 'Gold Tip',
+                model: 'Hunter',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 7.5,
+                diameterClass: 'standard',
+                spines: [300, 340, 400, 500],
+                spineType: 'carbon',
+                priceEur: 7.95,
+                priceBand: 'mid',
+                usage: ['compound', 'chasse', '3d'],
+                source: 'https://www.dutchbowstore.com/Gold-Tip-Hunter-Shaft/320014002'
+            }, {
+                brand: 'Easton',
+                model: '5mm Axis',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 6.2,
+                diameterClass: 'petit',
+                spines: [200, 260, 300, 340, 400, 500],
+                spineType: 'carbon',
+                priceEur: 12.5,
+                priceBand: 'premium',
+                usage: ['compound', 'chasse'],
+                source: 'https://www.dutchbowstore.com/Easton-5mm-Axis-Shaft/153317.6'
+            }, {
+                brand: 'Easton',
+                model: '6mm FMJ',
+                material: 'hybrid',
+                materialLabel: 'Carbone/Alu',
+                diameterMm: 6.0,
+                diameterClass: 'petit',
+                spines: [300, 340, 400, 500],
+                spineType: 'carbon',
+                priceEur: 15.0,
+                priceBand: 'premium',
+                usage: ['compound', 'chasse'],
+                source: 'https://eastonarchery.com/arrows_/fmj-6mm/'
+            }, {
+                brand: 'Easton',
+                model: '4mm Avance',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 5.7,
+                diameterClass: 'petit',
+                spines: [340, 400, 450, 500, 550, 600, 660, 730, 810, 900, 1000, 1150, 1400, 1600, 1800, 2000],
+                spineType: 'carbon',
+                priceEur: 9.2,
+                priceBand: 'mid',
+                usage: ['recurve', 'compound', 'cible'],
+                source: 'https://lancasterarchery.com/products/easton-avance-sport-4mm-carbon-target-arrow-shaft'
+            }, {
+                brand: 'Skylon',
+                model: 'Paragon ID3.2',
+                material: 'carbone',
+                materialLabel: 'Carbone 40T',
+                diameterMm: 4.9,
+                diameterClass: 'micro',
+                spines: [350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 1000],
+                spineType: 'carbon',
+                priceEur: 11.6,
+                priceBand: 'premium',
+                usage: ['recurve', 'compound', 'cible'],
+                source: 'https://www.altservices.eu/products/skylon-paragon-shafts-dozen'
+            }, {
+                brand: 'Victory',
+                model: 'VAP V1 Target',
+                material: 'carbone',
+                materialLabel: 'Carbone HM',
+                diameterMm: 5.4,
+                diameterClass: 'micro',
+                spines: [350, 400, 450, 500, 600, 700, 800, 900, 1000, 1100, 1200],
+                spineType: 'carbon',
+                priceEur: 13.5,
+                priceBand: 'premium',
+                usage: ['recurve', 'compound', 'cible'],
+                source: 'https://www.dutchbowstore.com/Victory-VAP-V1-Elite-Target-Shaft/151696.9'
+            }, {
+                brand: 'Easton',
+                model: 'X7 Eclipse',
+                material: 'alu',
+                materialLabel: 'Aluminium 7178',
+                diameterMm: 8.0,
+                diameterClass: 'standard',
+                spines: [1914, 2014, 2114, 2213, 2413, 2512, 2613],
+                spineType: 'alu',
+                priceEur: 10.9,
+                priceBand: 'premium',
+                usage: ['recurve', 'cible'],
+                source: 'https://webstore.kinseysinc.com/content/files/design/pdfs/2024TargetCatalog.pdf'
+            }, {
+                brand: 'Easton',
+                model: 'Legacy 6.5mm',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 6.5,
+                diameterClass: 'standard',
+                spines: [340, 400, 500, 600, 700],
+                spineType: 'carbon',
+                priceEur: 8.2,
+                priceBand: 'mid',
+                usage: ['recurve', 'traditionnel'],
+                source: 'https://www.dutchbowstore.com/Arrows-Parts/Arrow-Shafts/Carbon-Shafts/'
+            }, {
+                brand: 'Gold Tip',
+                model: 'Hunter Pro',
+                material: 'carbone',
+                materialLabel: 'Carbone',
+                diameterMm: 7.5,
+                diameterClass: 'standard',
+                spines: [300, 340, 400, 500],
+                spineType: 'carbon',
+                priceEur: 15.7,
+                priceBand: 'premium',
+                usage: ['compound', 'chasse'],
+                source: 'https://www.bogensportwelt.de/Shaft-GOLD-TIP-Hunter-Pro-Black-Carbon-incl-GT-Nock-and-Accu-Lite-Insert'
+            }, {
+                brand: 'Gold Tip',
+                model: 'Traditional',
+                material: 'bois',
+                materialLabel: 'Bois (cèdre)',
+                diameterMm: 8.5,
+                diameterClass: 'gros',
+                spines: [400, 500, 600, 700],
+                spineType: 'carbon',
+                priceEur: 9.5,
+                priceBand: 'mid',
+                usage: ['recurve', 'traditionnel'],
+                source: 'https://www.goldtip.com/traditional-arrows'
+            },
+        ];
+
+        /* ──────────── FILTER STATE ──────────── */
+        let filters = {
+            price: 'all',
+            material: 'all',
+            diameter: 'all'
+        };
+
+        function setFilter(type, value) {
+            filters[type] = value;
+            // Update pill active states
+            const pillGroup = document.getElementById(type + '-pills');
+            if (pillGroup) {
+                pillGroup.querySelectorAll('.pill').forEach(p => {
+                    const isActive = p.getAttribute('onclick') === `setFilter('${type}','${value}')`;
+                    p.classList.toggle('active', isActive);
+                });
+            }
+            renderArrowList();
+        }
+
+        /* ──────────── SPINE COMPATIBILITY ──────────── */
+        function spineCompatibility(arrow, recommendedSpine) {
+            if (!recommendedSpine) return {
+                match: false,
+                label: '—',
+                nearest: null
+            };
+
+            // For aluminum shafts (spine type 'alu'), use size-based matching
+            if (arrow.spineType === 'alu') {
+                // Approximate carbon spine → alu size mapping
+                // Higher carbon spine (softer) → larger alu size
+                const aluMap = {
+                    2000: '1214',
+                    1800: '1413',
+                    1500: '1416',
+                    1300: '1516',
+                    1100: '1616',
+                    1000: '1616',
+                    900: '1716',
+                    800: '1716',
+                    700: '1816',
+                    650: '1816',
+                    600: '1916',
+                    550: '1916',
+                    500: '2016',
+                    450: '2016',
+                    400: '2016',
+                    350: '2016'
+                };
+                // Find nearest alu size
+                const targetSize = aluMap[recommendedSpine] || '1816';
+                const hasExact = arrow.spines.includes(targetSize);
+                // Find nearest available
+                const spineNums = arrow.spines.map(s => parseInt(s));
+                const targetNum = parseInt(targetSize);
+                let nearest = arrow.spines[0],
+                    minDiff = Infinity;
+                for (const s of spineNums) {
+                    const d = Math.abs(s - targetNum);
+                    if (d < minDiff) {
+                        minDiff = d;
+                        nearest = arrow.spines[spineNums.indexOf(s)];
+                    }
+                }
+                return {
+                    match: hasExact,
+                    label: hasExact ? 'Compatible' : 'Proche: ' + nearest,
+                    nearest
+                };
+            }
+
+            // Carbon spine matching
+            const spineNums = arrow.spines.map(s => parseInt(s)).sort((a, b) => a - b);
+            // Find exact or nearest spine
+            const exact = spineNums.find(s => s === recommendedSpine);
+            if (exact) return {
+                match: true,
+                label: 'Spine ' + exact + ' disponible',
+                nearest: exact
+            };
+
+            // Find nearest within tolerance (±150)
+            let nearest = spineNums[0],
+                minDiff = Infinity;
+            for (const s of spineNums) {
+                const d = Math.abs(s - recommendedSpine);
+                if (d < minDiff) {
+                    minDiff = d;
+                    nearest = s;
+                }
+            }
+            const isClose = minDiff <= 150;
+            return {
+                match: isClose,
+                label: isClose ? 'Spine proche: ' + nearest + ' (écart ' + minDiff + ')' : 'Spine ' + nearest + ' (écart ' + minDiff + ')',
+                nearest
+            };
+        }
+
+        /* ──────────── RENDER ARROW LIST ──────────── */
+        function renderArrowList() {
+            const container = document.getElementById('arrow-list');
+            if (!container) return;
+
+            // Get current recommended spine
+            const result = window._lastResult || {};
+            const recSpine = result.spine || null;
+
+            let arrows = ARROW_CATALOG.filter(a => {
+                if (filters.price !== 'all' && a.priceBand !== filters.price) return false;
+                if (filters.material !== 'all' && a.material !== filters.material) return false;
+                if (filters.diameter !== 'all' && a.diameterClass !== filters.diameter) return false;
+                return true;
+            });
+
+            if (arrows.length === 0) {
+                container.innerHTML = '<div class="arrow-empty">Aucune flèche ne correspond à ces filtres.</div>';
+                return;
+            }
+
+            container.innerHTML = arrows.map(a => {
+                const compat = spineCompatibility(a, recSpine);
+                const spineList = a.spines.join(', ');
+                const matchClass = compat.match ? ' match' : '';
+                const compatBadge = compat.match ?
+                    `<span class="arrow-spec compatible">${compat.label}</span>` :
+                    `<span class="arrow-spec">${compat.label}</span>`;
+                return `
+      <div class="arrow-card${matchClass}">
+        <div class="arrow-card-header">
+          <div>
+            <div class="arrow-brand">${a.brand}</div>
+            <div class="arrow-model">${a.model}</div>
+          </div>
+          <div class="arrow-price">
+            <div class="arrow-price-value">${a.priceEur.toFixed(2).replace('.', ',')} €</div>
+            <div class="arrow-price-unit">par tube</div>
+          </div>
+        </div>
+        <div class="arrow-specs">
+          <span class="arrow-spec">${a.materialLabel}</span>
+          <span class="arrow-spec">Ø ${a.diameterMm} mm</span>
+          <span class="arrow-spec">Spines: ${spineList}</span>
+          ${compatBadge}
+        </div>
+      </div>
+    `;
+            }).join('');
+        }
+
+        /* ──────────── PRINT SUMMARY ──────────── */
+        function updatePrintSummary() {
+            const r = window._lastResult || {};
+            if (!r.spine) {
+                document.getElementById('print-summary').innerHTML = '';
+                return;
+            }
+            const bowLabel = r.bowType === 'recurve' ? 'Arc classique' : 'Arc à poulies';
+            const lengthCm = Math.round(r.lengthIn * 2.54);
+            const speedSummary = r.speedFps == null ? '' : ` &nbsp;|&nbsp; Vitesse: ${r.speedFps} fps`;
+            document.getElementById('print-summary').innerHTML = `
+    <strong>Récapitulatif — FlèchOptim</strong><br>
+    Type d'arc: ${bowLabel} &nbsp;|&nbsp; Puissance: ${r.weight} lbs${speedSummary} &nbsp;|&nbsp; Allonge: ${r.lengthIn}" (${lengthCm} cm) &nbsp;|&nbsp; Poids de pointe: ${r.pointWeight} gr<br>
+    Puissance équivalente pour la sélection: ${r.adjWeight.toFixed(1)} lbs<br>
+    Spine recommandé: <strong>${r.spine}</strong> &nbsp;|&nbsp; Date: ${new Date().toLocaleDateString('fr-FR')}<br>
+    Tableau indicatif inspiré des tableaux fabricants — à confirmer avec le tableau officiel du fabricant.
+  `;
+        }
+
+        /* ──────────── STATE ──────────── */
+        let bowType = 'recurve';
+        let lengthUnit = 'in';
+
+        function setBowType(type) {
+            bowType = type;
+            document.getElementById('btn-recurve').classList.toggle('active', type === 'recurve');
+            document.getElementById('btn-compound').classList.toggle('active', type === 'compound');
+            document.getElementById('compound-speed-field').hidden = type !== 'compound';
+            clearResult();
+        }
+
+        function setUnit(unit) {
+            lengthUnit = unit;
+            document.getElementById('unit-in').classList.toggle('active', unit === 'in');
+            document.getElementById('unit-cm').classList.toggle('active', unit === 'cm');
+            const hint = document.getElementById('length-hint');
+            const input = document.getElementById('draw-length');
+            if (unit === 'in') {
+                hint.textContent = 'En pouces (po) — pour plus de précision, utilisez la longueur réelle du tube du creux d\'encoche au bout du tube, pas seulement l\'allonge AMO.';
+                input.placeholder = 'ex. 28';
+                input.min = 18;
+                input.max = 36;
+                input.step = 0.5;
+            } else {
+                hint.textContent = 'En centimètres — sera converti en pouces automatiquement. Pour plus de précision, utilisez la longueur réelle du tube.';
+                input.placeholder = 'ex. 71';
+                input.min = 45;
+                input.max = 92;
+                input.step = 1;
+            }
+            clearResult();
+        }
+
+        function clearResult() {
+            document.getElementById('result-card').classList.remove('visible');
+            window._lastResult = {};
+            renderArrowList();
+            updatePrintSummary();
+        }
+
+        /* ──────────── LOOKUP ──────────── */
+        function lookupSpine(table, correctedLbs, lengthIn) {
+            // Find the row for draw weight
+            let row = null;
+            let outOfRange = null;
+            for (const r of table) {
+                if (correctedLbs >= r.wMin && correctedLbs <= r.wMax) {
+                    row = r;
+                    break;
+                }
+            }
+            if (!row && correctedLbs > table[table.length - 1].wMax) {
+                row = table[table.length - 1];
+                outOfRange = 'above';
+            }
+            if (!row && correctedLbs < table[0].wMin) {
+                row = table[0];
+                outOfRange = 'below';
+            }
+            if (!row) return null;
+
+            // Find the column for arrow length — round to nearest integer
+            const colKeys = Object.keys(row.spines).map(Number);
+            const roundedLen = Math.round(lengthIn);
+            // Clamp to table range
+            const clampedLen = Math.max(colKeys[0], Math.min(colKeys[colKeys.length - 1], roundedLen));
+            // Try exact, then nearest
+            let spine = row.spines[clampedLen];
+            if (spine == null) {
+                // Find nearest column with a value
+                let best = null,
+                    bestDist = Infinity;
+                for (const k of colKeys) {
+                    if (row.spines[k] != null) {
+                        const d = Math.abs(k - clampedLen);
+                        if (d < bestDist) {
+                            bestDist = d;
+                            best = k;
+                        }
+                    }
+                }
+                spine = best !== null ? row.spines[best] : null;
+            }
+            return {
+                spine,
+                row,
+                col: clampedLen,
+                outOfRange,
+                estimated: !!row.estimated
+            };
+        }
+
+        /* ──────────── MAIN CALC ──────────── */
+        function calculate() {
+            clearErrors();
+
+            const weightRaw = parseFloat(document.getElementById('draw-weight').value);
+            const lengthRaw = parseFloat(document.getElementById('draw-length').value);
+            const pointWeightRaw = parseFloat(document.getElementById('point-weight').value) || 100;
+            const speedRaw = parseFloat(document.getElementById('bow-speed').value);
+
+            let valid = true;
+            if (isNaN(weightRaw) || weightRaw < 10 || weightRaw > 100) {
+                showError('err-weight', 'draw-weight');
+                valid = false;
+            }
+            if (bowType === 'compound' && (isNaN(speedRaw) || speedRaw < 100 || speedRaw > 500)) {
+                showError('err-speed', 'bow-speed');
+                valid = false;
+            }
+            if (isNaN(lengthRaw) || lengthRaw <= 0) {
+                showError('err-length', 'draw-length');
+                valid = false;
+            }
+            if (!valid) return;
+
+            // Convert length to inches if needed
+            let lengthIn = lengthUnit === 'cm' ? lengthRaw / 2.54 : lengthRaw;
+            lengthIn = Math.round(lengthIn * 10) / 10; // 1 decimal
+
+            // Apply point weight correction
+            const pointAdjustedWeight = correctedWeight(weightRaw, pointWeightRaw);
+            const speedCorrection = bowType === 'compound' ? speedWeightCorrection(speedRaw) : 0;
+            const adjWeight = pointAdjustedWeight + speedCorrection;
+
+            // Lookup
+            const table = bowType === 'recurve' ? RECURVE_TABLE : COMPOUND_TABLE;
+            const result = lookupSpine(table, adjWeight, lengthIn);
+
+            if (!result || result.spine == null) {
+                document.getElementById('res-spine').textContent = 'Hors table';
+                document.getElementById('res-spine-sub').textContent = 'Paramètres hors plage — consulter fabricant';
+            } else {
+                const pw = recommendedPointWeight(result.spine);
+
+                // Display
+                document.getElementById('res-spine').textContent = result.spine;
+                let spineSub = result.spine >= 400 ? 'Flèche souple' : 'Flèche rigide';
+                if (result.estimated) spineSub += ' · estimation hors tableau source';
+                if (result.outOfRange === 'above') spineSub += ' · poids au-dessus de la plage source';
+                if (result.outOfRange === 'below') spineSub += ' · poids en dessous de la plage source';
+                document.getElementById('res-spine-sub').textContent = spineSub;
+
+                // Point weight
+                const displayPoint = isNaN(parseFloat(document.getElementById('point-weight').value)) ?
+                    pw.default :
+                    pointWeightRaw;
+                document.getElementById('res-point').textContent = displayPoint + ' gr';
+                document.getElementById('res-point-sub').textContent = `Plage recommandée : ${pw.min}–${pw.max} gr`;
+
+                // Length display
+                const lengthDisplay = lengthUnit === 'cm' ?
+                    `${Math.round(lengthIn * 10) / 10}" (${Math.round(lengthIn * 2.54)} cm)` :
+                    `${Math.round(lengthIn * 10) / 10}"`;
+                document.getElementById('res-length').textContent = lengthDisplay;
+
+                // Weight display
+                const corrLabel = adjWeight !== weightRaw ?
+                    `${adjWeight.toFixed(1)} lbs (corrigé)` :
+                    `${weightRaw} lbs`;
+                document.getElementById('res-weight').textContent = corrLabel;
+
+                // Notice
+                const noticeText = buildNotice(weightRaw, pointWeightRaw, pointAdjustedWeight, adjWeight, bowType, speedRaw, speedCorrection);
+                document.getElementById('notice-text').textContent = noticeText;
+
+                // Tips
+                buildTips(result.spine, pointWeightRaw, bowType, weightRaw, speedRaw, speedCorrection);
+
+                // Table
+                buildTable(table, result.row, lengthIn);
+            }
+
+            // Store result for arrow filtering & print
+            window._lastResult = {
+                spine: result ? result.spine : null,
+                bowType,
+                weight: weightRaw,
+                lengthIn,
+                pointWeight: pointWeightRaw,
+                adjWeight,
+                speedFps: bowType === 'compound' ? speedRaw : null,
+                speedCorrection
+            };
+            renderArrowList();
+            updatePrintSummary();
+
+            document.getElementById('result-card').classList.add('visible');
+            document.getElementById('result-card').scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest'
+            });
+        }
+
+        function buildNotice(weight, pointWeight, pointAdjustedWeight, adjWeight, bowType, speedFps, speedCorrection) {
+            let notice = `Résultat indicatif, inspiré des tableaux fabricants (${bowType === 'recurve' ? 'arc classique' : 'arc à poulies'}). `;
+            if (Math.abs(pointAdjustedWeight - weight) > 0.5) {
+                const diff = (pointAdjustedWeight - weight).toFixed(1);
+                notice += `Puissance corrigée de ${diff > 0 ? '+' : ''}${diff} lbs pour une pointe de ${pointWeight} gr (base 100 gr). `;
+            }
+            if (bowType === 'compound') {
+                notice += `À ${speedFps} fps, la vitesse ajoute ${speedCorrection.toFixed(1)} lbs à la puissance équivalente utilisée pour le spine (+1 lb par 10 fps au-dessus de 300 fps). `;
+            }
+            notice += `Confirmez toujours avec le tableau du fabricant de votre flèche et effectuez un test bare shaft ou paper test.`;
+            return notice;
+        }
+
+        function buildTips(spine, pointWeight, bowType, weight, speedFps, speedCorrection) {
+            const tips = [];
+            if (spine >= 700) {
+                tips.push('Plumes : 2" à 3" recommandées pour ce spine souple.');
+            } else {
+                tips.push('Plumes : 4" ou vanes rigides pour un bon stabilisation de vol.');
+            }
+            if (bowType === 'compound') {
+                tips.push(`Vitesse de l'arc : ${speedFps} fps${speedCorrection > 0 ? `, soit +${speedCorrection.toFixed(1)} lbs équivalentes pour le calcul` : ', sans correction sous 300 fps'}. Cette estimation ne remplace pas un tableau fabricant tenant compte de la vitesse.`);
+                tips.push(`Poids total minimum conseillé : ${Math.round(weight * 5)} gr (5 grains/lbs).`);
+            } else {
+                tips.push('En cas de doute entre deux spines, choisissez le plus rigide (nombre plus bas).');
+            }
+            tips.push('Pour plus de précision, utilisez la longueur réelle du tube du creux d’encoche au bout du tube, plutôt que votre allonge AMO.');
+
+            const list = document.getElementById('result-tips');
+            list.innerHTML = tips.map(t => `<li>${t}</li>`).join('');
+        }
+
+        function buildTable(table, activeRow, activeLen) {
+            const allCols = new Set();
+            for (const r of table) {
+                Object.keys(r.spines).forEach(k => {
+                    if (r.spines[k] != null) allCols.add(Number(k));
+                });
+            }
+            const cols = Array.from(allCols).sort((a, b) => a - b);
+
+            const activeRowIdx = table.indexOf(activeRow);
+            const activeCol = Math.round(activeLen);
+
+            let html = '<table><thead><tr>';
+            html += `<th>Puissance (lbs)</th>`;
+            for (const c of cols) html += `<th>${c}"</th>`;
+            html += '</tr></thead><tbody>';
+
+            for (let i = 0; i < table.length; i++) {
+                const r = table[i];
+                const isActiveRow = i === activeRowIdx;
+                html += `<tr>`;
+                html += `<td>${r.wMin}–${r.wMax} lbs</td>`;
+                for (const c of cols) {
+                    const val = r.spines[c];
+                    const isActiveCell = isActiveRow && c === activeCol;
+                    const cls = isActiveCell ? ' class="highlight"' : '';
+                    html += `<td${cls}>${val != null ? val : '—'}</td>`;
+                }
+                html += '</tr>';
+            }
+            html += '</tbody></table>';
+            document.getElementById('spine-table-wrap').innerHTML = html;
+        }
+
+        /* ──────────── HELPERS ──────────── */
+        function showError(errId, inputId) {
+            document.getElementById(errId).classList.add('visible');
+            document.getElementById(inputId).classList.add('error');
+        }
+
+        function clearErrors() {
+            ['err-weight', 'err-length', 'err-speed'].forEach(id => document.getElementById(id).classList.remove('visible'));
+            ['draw-weight', 'draw-length', 'bow-speed'].forEach(id => document.getElementById(id).classList.remove('error'));
+        }
+
+        /* ──────────── THEME TOGGLE ──────────── */
+        (function() {
+            const toggle = document.querySelector('[data-theme-toggle]');
+            const root = document.documentElement;
+            let d = 'dark';
+            root.setAttribute('data-theme', d);
+
+            function updateIcon() {
+                toggle.innerHTML = d === 'dark' ?
+                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>' :
+                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+            }
+            updateIcon();
+            toggle.addEventListener('click', () => {
+                d = d === 'dark' ? 'light' : 'dark';
+                root.setAttribute('data-theme', d);
+                updateIcon();
+            });
+        })();
+
+        /* Enter key support */
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && ['draw-weight', 'draw-length', 'point-weight', 'bow-speed'].includes(e.target.id)) {
+                calculate();
+            }
+        });
+
+        /* Initial render — show all arrows even before calculation */
+        renderArrowList();
+    </script>
+    <script data-pplx-inline-edit>
+        (function() {
+            if (window === window.top) return;
+
+            const allowedParentOrigins = ["https://www.perplexity.ai", "https://perplexity.ai", "https://testing.perplexity.ai", "https://staging.perplexity.ai", "https://*.preview.i.perplexity.ai", "http://perplexity.localhost", "http://localhost:1420", "http://127.0.0.1:1420", "http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5173", "http://127.0.0.1:5173"];
+            const MAX_FONT_BYTES = 500 * 1024;
+            const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+            let scrollForwarding = false;
+            let scrollRaf = 0;
+            let trustedTopOrigin = null;
+
+            // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+            // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+            // across multiple labels.
+            function matchesAllowedOrigin(origin) {
+                if (!origin) return false;
+                for (const entry of allowedParentOrigins) {
+                    if (!entry.includes("*")) {
+                        if (entry === origin) return true;
+                        continue;
+                    }
+                    const pattern = new RegExp(
+                        "^" +
+                        entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+                        "$",
+                    );
+                    if (pattern.test(origin)) return true;
+                }
+                return false;
+            }
+
+            // Trust decision: when the sender is same-origin-visible (event.origin is a
+            // real origin like https://www.perplexity.ai) we trust event.origin directly.
+            // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+            // broker's stamped `parentOrigin` to identify the top window. The fallback
+            // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+            // on the response path (see postToTrustedTop) to ensure replies can't be
+            // delivered to anyone but the actual top window of that claimed origin.
+            function getTrustedParentOrigin(event) {
+                const forwardedParentOrigin =
+                    typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+                const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+                return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+            }
+
+            // All responses go to window.top with targetOrigin = the allowlisted origin.
+            // An attacker that iframes us inside their own null-origin broker can claim
+            // any parentOrigin they like, but the browser will drop the reply whenever
+            // the real top's origin doesn't match — so the screenshot never leaves.
+            function postToTrustedTop(message) {
+                if (!trustedTopOrigin) return;
+                try {
+                    window.top.postMessage(message, trustedTopOrigin);
+                } catch (_error) {}
+            }
+
+            function inlineAll(original, clone) {
+                if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+                try {
+                    const computedStyle = getComputedStyle(original);
+                    // cssText on a computed style is the serialized declaration in modern
+                    // Chromium/Safari — a single read beats enumerating ~400 longhand
+                    // properties. Firefox returns "" here, so we fall back on empty.
+                    const serialized = computedStyle.cssText;
+                    if (serialized) {
+                        clone.style.cssText = serialized;
+                    } else {
+                        const parts = new Array(computedStyle.length);
+                        for (let index = 0; index < computedStyle.length; index += 1) {
+                            const property = computedStyle[index];
+                            parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+                        }
+                        clone.style.cssText = parts.join("");
+                    }
+                } catch (_error) {}
+
+                const originalChildren = original.children;
+                const clonedChildren = clone.children;
+                for (
+                    let index = 0; index < originalChildren.length && index < clonedChildren.length; index += 1
+                ) {
+                    inlineAll(originalChildren[index], clonedChildren[index]);
+                }
+            }
+
+            function extractFontUrl(srcValue) {
+                const matches = [
+                    ...srcValue.matchAll(
+                        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+                    ),
+                ];
+                if (matches.length === 0) return null;
+                const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+                if (woff2) return woff2[1];
+                const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+                if (woff) return woff[1];
+                return matches[0][1];
+            }
+
+            // Cache resolved font URL -> data URI across captures. Fonts on a page
+            // essentially never change, and a batch run emits multiple captures back to
+            // back — without this we'd refetch + re-base64 every time.
+            const fontDataUriCache = new Map();
+            const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+            async function fetchAsDataUri(url) {
+                if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+                let dataUri = null;
+                try {
+                    const response = await fetch(url, {
+                        mode: "cors",
+                        credentials: "omit"
+                    });
+                    if (response.ok) {
+                        const blob = await response.blob();
+                        if (blob.size <= MAX_FONT_BYTES) {
+                            dataUri = await new Promise((resolve) => {
+                                const reader = new FileReader();
+                                reader.onloadend = () =>
+                                    resolve(typeof reader.result === "string" ? reader.result : null);
+                                reader.onerror = () => resolve(null);
+                                reader.readAsDataURL(blob);
+                            });
+                        }
+                    }
+                } catch (_error) {
+                    dataUri = null;
+                }
+                fontDataUriCache.set(url, dataUri);
+                return dataUri;
+            }
+
+            function collectFontFaceRuleTexts() {
+                const rules = [];
+                for (const sheet of document.styleSheets) {
+                    let cssRules;
+                    try {
+                        cssRules = sheet.cssRules;
+                    } catch (_error) {
+                        continue;
+                    }
+                    if (!cssRules) continue;
+                    for (const rule of cssRules) {
+                        const cssText = rule.cssText || "";
+                        if (cssText.startsWith("@font-face")) rules.push(cssText);
+                    }
+                }
+                return rules;
+            }
+
+            async function buildInlinedFontCss() {
+                const ruleTexts = collectFontFaceRuleTexts();
+                if (ruleTexts.length === 0) return null;
+
+                const resolved = ruleTexts.map((cssText) => {
+                    if (!SRC_DECLARATION_RE.test(cssText)) return null;
+                    const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+                    if (!srcMatch) return null;
+                    const url = extractFontUrl(srcMatch[1]);
+                    if (!url) return null;
+                    try {
+                        return {
+                            cssText,
+                            url: new URL(url, document.baseURI).href
+                        };
+                    } catch (_error) {
+                        return null;
+                    }
+                });
+
+                const dataUris = await Promise.all(
+                    resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+                );
+
+                const inlined = [];
+                let totalBytes = 0;
+                for (let index = 0; index < resolved.length; index += 1) {
+                    const entry = resolved[index];
+                    const dataUri = dataUris[index];
+                    if (!entry || !dataUri) continue;
+                    const approxBytes = dataUri.length * 0.75;
+                    if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+                    totalBytes += approxBytes;
+                    inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+                }
+                return inlined.length > 0 ? inlined.join("\n") : null;
+            }
+
+            function stripExternal(clone) {
+                const images = clone.querySelectorAll("img");
+                for (let index = 0; index < images.length; index += 1) {
+                    const src = images[index].getAttribute("src");
+                    if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+                }
+
+                const elements = clone.querySelectorAll("*");
+                for (let index = 0; index < elements.length; index += 1) {
+                    const style = elements[index].style.cssText;
+                    if (style && style.includes("url(")) {
+                        elements[index].style.cssText = style.replace(
+                            /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+                            "none",
+                        );
+                    }
+                }
+            }
+
+            function emitScroll() {
+                scrollRaf = 0;
+                if (!scrollForwarding) return;
+                postToTrustedTop({
+                    type: "INLINE_EDIT_SCROLL",
+                    scrollX: window.scrollX,
+                    scrollY: window.scrollY,
+                });
+            }
+
+            window.addEventListener(
+                "scroll",
+                function() {
+                    if (!scrollForwarding || scrollRaf) return;
+                    scrollRaf = requestAnimationFrame(emitScroll);
+                }, {
+                    passive: true,
+                    capture: true
+                },
+            );
+
+            async function handleCaptureRequest(event) {
+                const requestId = event.data.requestId;
+                const scrollX = window.scrollX;
+                const scrollY = window.scrollY;
+                const width = window.innerWidth;
+                const height = window.innerHeight;
+
+                function postResult(dataUrl) {
+                    postToTrustedTop({
+                        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+                        requestId,
+                        dataUrl,
+                        scrollX,
+                        scrollY,
+                    });
+                }
+
+                try {
+                    // Wait for any pending web fonts to resolve so both inline metrics and
+                    // the @font-face inlining below see the same loaded faces.
+                    if (document.fonts && document.fonts.ready) {
+                        try {
+                            await document.fonts.ready;
+                        } catch (_error) {}
+                    }
+
+                    const clone = document.documentElement.cloneNode(true);
+                    inlineAll(document.documentElement, clone);
+
+                    const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+                    for (let index = 0; index < removedNodes.length; index += 1) {
+                        removedNodes[index].remove();
+                    }
+
+                    stripExternal(clone);
+
+                    // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+                    // can resolve them — external font URLs aren't fetched during
+                    // foreignObject rendering, which would otherwise force a fallback face
+                    // and change text metrics.
+                    const inlinedFontCss = await buildInlinedFontCss();
+                    if (inlinedFontCss) {
+                        const styleEl = document.createElement("style");
+                        styleEl.textContent = inlinedFontCss;
+                        const head = clone.querySelector("head");
+                        if (head) head.appendChild(styleEl);
+                        else clone.insertBefore(styleEl, clone.firstChild);
+                    }
+
+                    const html = new XMLSerializer().serializeToString(clone);
+                    const svg =
+                        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+                        '<foreignObject width="100%" height="100%">' +
+                        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+                        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+                        html +
+                        "</div></div></foreignObject></svg>";
+                    const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+                    const image = new Image();
+                    image.onload = function() {
+                        const canvas = document.createElement("canvas");
+                        canvas.width = width;
+                        canvas.height = height;
+                        canvas.getContext("2d").drawImage(image, 0, 0);
+                        postResult(canvas.toDataURL("image/png"));
+                    };
+                    image.onerror = function() {
+                        postResult(null);
+                    };
+                    image.src = svgUrl;
+                } catch (_error) {
+                    postResult(null);
+                }
+            }
+
+            window.addEventListener("message", function(event) {
+                if (!event.data) return;
+                // Only accept messages from the direct parent frame. Blocks sibling /
+                // unrelated-window postMessage senders that could otherwise reach us.
+                if (event.source !== window.parent) return;
+
+                const trustedParentOrigin = getTrustedParentOrigin(event);
+                if (!trustedParentOrigin) return;
+                trustedTopOrigin = trustedParentOrigin;
+
+                if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+                    scrollForwarding = true;
+                    emitScroll();
+                    return;
+                }
+
+                if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+                    scrollForwarding = false;
+                    if (scrollRaf) cancelAnimationFrame(scrollRaf);
+                    scrollRaf = 0;
+                    return;
+                }
+
+                if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+                handleCaptureRequest(event);
+            });
+        })();
+    </script>
+</body>
+
+</html>
