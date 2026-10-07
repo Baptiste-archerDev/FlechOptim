@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="dark">
+<html lang="fr" data-theme="light">
 
 <head>
     <meta charset="UTF-8" />
@@ -368,7 +368,7 @@
             flex-direction: column;
             gap: var(--space-2);
         }
-
+        
         .field[hidden] {
             display: none;
         }
@@ -1036,7 +1036,946 @@
                 padding: var(--space-3) var(--space-4);
             }
         }
+
+        /* ═════════════════════════════════════════════════════════════
+           REFONTE « INSTRUMENT DE PRÉCISION »
+           Encre profonde + bleu cobalt + jaune « volt » : un univers
+           technique/labo, loin des codes vert-kaki-bois du tir à l'arc.
+           ═════════════════════════════════════════════════════════════ */
+        
+        :root,
+        [data-theme="light"] {
+            --ink: #0c1322;
+            --ink-2: #162036;
+            --volt: #d6ff3d;
+            --color-bg: #f3f5f9;
+            --color-surface: #ffffff;
+            --color-surface-2: #f6f8fc;
+            --color-border: #dde3ee;
+            --color-divider: #e8ecf4;
+            --color-text: #0c1322;
+            --color-text-muted: #51607a;
+            --color-text-faint: #8794ab;
+            --color-primary: #2f4bff;
+            --color-primary-hover: #2038e0;
+            --color-primary-active: #182ac0;
+            --color-primary-highlight: rgba(47, 75, 255, 0.10);
+            --color-accent: #2f4bff;
+            --color-accent-hover: #2038e0;
+            --color-accent-highlight: rgba(47, 75, 255, 0.10);
+            --color-success: #0f9d63;
+            --color-success-bg: rgba(47, 75, 255, 0.05);
+            --color-warning: #c77c00;
+            --color-warning-bg: #fff6e0;
+            --shadow-sm: 0 1px 2px rgba(12, 19, 34, 0.05);
+            --shadow-md: 0 1px 2px rgba(12, 19, 34, 0.04), 0 10px 30px rgba(12, 19, 34, 0.06);
+            --shadow-lg: 0 20px 50px rgba(12, 19, 34, 0.12);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+            --radius-xl: 18px;
+            --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+        }
+        
+        [data-theme="dark"] {
+            --color-bg: #080c15;
+            --color-surface: #0f1626;
+            --color-surface-2: #141d31;
+            --color-border: #253250;
+            --color-divider: #1b2640;
+            --color-text: #eaf0fb;
+            --color-text-muted: #98a8c6;
+            --color-text-faint: #62739a;
+            --color-primary: #7d93ff;
+            --color-primary-hover: #97a9ff;
+            --color-primary-active: #aebbff;
+            --color-primary-highlight: rgba(125, 147, 255, 0.16);
+            --color-accent: #7d93ff;
+            --color-accent-hover: #97a9ff;
+            --color-accent-highlight: rgba(125, 147, 255, 0.16);
+            --color-success: #3ddc97;
+            --color-success-bg: rgba(125, 147, 255, 0.08);
+            --color-warning: #f5b53d;
+            --color-warning-bg: rgba(245, 181, 61, 0.12);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
+        }
+        
+        body {
+            background-image: none;
+            letter-spacing: -0.003em;
+        }
+        
+        h1,
+        h2,
+        .card-title,
+        .logo-name,
+        .result-value,
+        .arrow-price-value {
+            font-family: var(--font-display);
+        }
+        /* ── HEADER ── */
+        
+        header {
+            background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+            border-bottom: 1px solid var(--color-divider);
+            padding: var(--space-3) var(--space-8);
+            backdrop-filter: saturate(180%) blur(14px);
+        }
+        
+        .logo svg circle {
+            fill: var(--ink);
+            opacity: 1;
+        }
+        
+        .logo svg path[stroke="var(--color-primary)"] {
+            stroke: var(--volt);
+        }
+        
+        .logo svg line[stroke="var(--color-text)"] {
+            stroke: #fff;
+        }
+        
+        .logo svg line[stroke="var(--color-accent)"],
+        .logo svg path[stroke="var(--color-accent)"] {
+            stroke: var(--volt);
+        }
+        
+        .logo svg path[fill="var(--color-accent)"] {
+            fill: var(--volt);
+        }
+        
+        .logo-name {
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            font-size: 1.25rem;
+        }
+        
+        .logo-tagline {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .theme-toggle {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+        }
+        /* ── HERO ── */
+        
+        .hero-band {
+            background: radial-gradient(900px 400px at 85% -10%, rgba(47, 75, 255, 0.45), transparent 60%), linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+            color: #fff;
+            padding: var(--space-12) var(--space-6) calc(var(--space-12) + var(--space-8));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-band::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(180deg, #000 20%, transparent 100%);
+            -webkit-mask-image: linear-gradient(180deg, #000 20%, transparent 100%);
+            pointer-events: none;
+        }
+        
+        .hero-inner {
+            position: relative;
+            max-width: 1320px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: var(--space-10);
+            align-items: center;
+        }
+        
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--volt);
+            padding: 6px 12px;
+            border: 1px solid rgba(214, 255, 61, 0.35);
+            border-radius: var(--radius-full);
+            background: rgba(214, 255, 61, 0.07);
+        }
+        
+        .eyebrow::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--volt);
+        }
+        
+        .hero-band h1 {
+            font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+            margin: var(--space-5) 0 var(--space-4);
+            color: #fff;
+        }
+        
+        .hero-band h1 em {
+            font-style: normal;
+            color: var(--volt);
+        }
+        
+        .hero-band .lead {
+            font-size: var(--text-base);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.78);
+            max-width: 46ch;
+        }
+        
+        .steps {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            margin-top: var(--space-8);
+        }
+        
+        .steps li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.05);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: #fff;
+        }
+        
+        .steps li b {
+            display: grid;
+            place-items: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--volt);
+            color: var(--ink);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .hero-visual {
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: var(--radius-xl);
+            background: rgba(255, 255, 255, 0.04);
+            padding: var(--space-5);
+            backdrop-filter: blur(6px);
+            min-width: 0;
+        }
+        
+        .hero-visual svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .hero-caption {
+            display: flex;
+            justify-content: space-between;
+            gap: var(--space-3);
+            margin-top: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        /* ── MAIN : remonte sur le hero ── */
+        
+        main {
+            margin-top: calc(-1 * var(--space-12));
+            position: relative;
+            z-index: 2;
+            padding-top: 0;
+        }
+        
+        .spread-col-left {
+            top: calc(72px + var(--space-3));
+        }
+        
+        .spread-col-left,
+        .spread-col-right,
+        .editorial-spread>* {
+            min-width: 0;
+        }
+        /* ── CARTES numérotées 1 · 2 · 3 ── */
+        
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-divider);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-6);
+            min-width: 0;
+            margin-bottom: 0;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            gap: var(--space-3);
+            margin-bottom: var(--space-5);
+        }
+        
+        .card-title svg {
+            display: none;
+        }
+        
+        .card-title::before {
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-sm);
+            background: var(--ink);
+            color: var(--volt);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        
+        [data-theme="dark"] .card-title::before {
+            background: var(--volt);
+            color: var(--ink);
+        }
+        
+        #form-card .card-title::before {
+            content: "1";
+        }
+        
+        #result-card .card-title::before {
+            content: "2";
+        }
+        
+        #arrow-catalog-card .card-title::before {
+            content: "3";
+        }
+        
+        .card>div[style*="font-size:var(--text-sm)"] {
+            color: var(--color-text-muted) !important;
+            line-height: 1.5;
+        }
+        /* ── FORMULAIRE ── */
+        
+        .form-grid {
+            gap: var(--space-5);
+        }
+        
+        .form-grid,
+        .field {
+            min-width: 0;
+        }
+        
+        .field label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0;
+            color: var(--color-text);
+        }
+        
+        .field-hint {
+            font-size: 0.78rem;
+            line-height: 1.45;
+            color: var(--color-text-muted);
+        }
+        
+        .input-row,
+        .point-weight-group {
+            min-width: 0;
+            flex-wrap: nowrap;
+            align-items: stretch;
+        }
+        
+        input[type="number"] {
+            min-width: 0;
+            width: 100%;
+            padding: 0.8rem var(--space-4);
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 500;
+            background: var(--color-surface-2);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        
+        input[type="number"]:hover {
+            border-color: var(--color-text-faint);
+        }
+        
+        input[type="number"]:focus {
+            background: var(--color-surface);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px var(--color-primary-highlight);
+        }
+        
+        input[type="number"]::placeholder {
+            color: var(--color-text-faint);
+        }
+        /* Unité fixe (lbs / fps) : simple suffixe */
+        
+        .input-row .unit-toggle[style] {
+            background: var(--color-surface-2) !important;
+            border: 1.5px solid var(--color-border) !important;
+            border-radius: var(--radius-md) !important;
+            padding: 0;
+            display: grid;
+            place-items: center;
+        }
+        
+        .input-row .unit-toggle[style] button {
+            font-family: var(--font-mono);
+            font-size: 0.82rem !important;
+            min-width: 56px !important;
+            color: var(--color-text-muted) !important;
+        }
+        
+        .point-weight-unit {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--color-text-muted);
+            padding: 0 var(--space-3);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: var(--color-surface-2);
+            display: flex;
+            align-items: center;
+        }
+        /* Contrôles segmentés */
+        
+        .unit-toggle,
+        .bow-type-toggle {
+            padding: 4px;
+            gap: 2px;
+            background: var(--color-surface-2);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+        }
+        
+        .input-row .unit-toggle {
+            flex-shrink: 0;
+        }
+        
+        .unit-toggle button,
+        .bow-type-toggle button {
+            border: none !important;
+            border-radius: var(--radius-sm);
+            padding: var(--space-2) var(--space-4);
+            min-width: 0;
+            font-weight: 600;
+        }
+        
+        .unit-toggle button.active,
+        .bow-type-toggle button.active {
+            background: var(--ink);
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(12, 19, 34, 0.25);
+        }
+        
+        [data-theme="dark"] .unit-toggle button.active,
+        [data-theme="dark"] .bow-type-toggle button.active {
+            background: var(--volt);
+            color: var(--ink);
+        }
+        /* CTA principal */
+        
+        .cta-btn {
+            background: var(--ink);
+            color: #fff;
+            border-radius: var(--radius-md);
+            padding: 1rem var(--space-6);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 0;
+            box-shadow: 0 8px 20px rgba(12, 19, 34, 0.25);
+            white-space: normal;
+            text-align: center;
+            margin-top: var(--space-3);
+        }
+        
+        .cta-btn svg {
+            color: var(--volt);
+        }
+        
+        .cta-btn:hover {
+            background: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(47, 75, 255, 0.4);
+        }
+        
+        [data-theme="dark"] .cta-btn {
+            background: var(--volt);
+            color: var(--ink);
+            box-shadow: 0 8px 24px rgba(214, 255, 61, 0.2);
+        }
+        
+        [data-theme="dark"] .cta-btn svg {
+            color: var(--ink);
+        }
+        
+        [data-theme="dark"] .cta-btn:hover {
+            background: #e6ff7a;
+        }
+        /* ── RÉSULTAT : le spine en grand ── */
+        
+        .result-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+        }
+        
+        .result-item {
+            background: var(--color-surface-2);
+            border: 1px solid var(--color-divider);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4) var(--space-5);
+            min-width: 0;
+        }
+        
+        .result-item.primary {
+            grid-column: 1 / -1;
+            background: radial-gradient(500px 200px at 100% 0%, rgba(47, 75, 255, 0.5), transparent 70%), var(--ink);
+            border: none;
+            padding: var(--space-6);
+            color: #fff;
+        }
+        
+        .result-item.primary .result-label {
+            color: var(--volt);
+            font-family: var(--font-mono);
+            letter-spacing: 0.12em;
+        }
+        
+        .result-item.primary .result-value {
+            font-family: var(--font-mono);
+            font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--volt);
+            line-height: 1;
+            margin: var(--space-2) 0;
+        }
+        
+        .result-item.primary .result-sub {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .result-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+        
+        .result-value {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        
+        .notice-box {
+            border: none;
+            border-left: 4px solid var(--color-warning);
+            border-radius: var(--radius-md);
+        }
+        
+        .info-list li::before {
+            color: var(--color-primary);
+        }
+        /* ── TABLEAU ── */
+        
+        .table-title {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+        }
+        
+        .table-wrap {
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--color-border);
+        }
+        
+        th {
+            background: var(--color-surface-2);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+        
+        td {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+        
+        td.highlight,
+        [data-theme="dark"] td.highlight {
+            background: var(--volt);
+            color: var(--ink);
+            font-weight: 700;
+            border-radius: 0;
+        }
+        /* ── CATALOGUE ── */
+        
+        .pill {
+            background: var(--color-surface);
+            border: 1.5px solid var(--color-border);
+            font-size: 0.82rem;
+            padding: 6px 14px;
+        }
+        
+        .pill:hover {
+            border-color: var(--ink);
+            color: var(--color-text);
+        }
+        
+        .pill.active {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+        
+        [data-theme="dark"] .pill.active {
+            background: var(--volt);
+            border-color: var(--volt);
+            color: var(--ink);
+        }
+        
+        .filter-group label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-muted);
+        }
+        
+        .arrow-card {
+            background: var(--color-surface);
+            border: 1.5px solid var(--color-divider);
+            border-radius: var(--radius-lg);
+        }
+        
+        .arrow-card:hover {
+            border-color: var(--color-text-faint);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .arrow-card.match {
+            border-color: var(--color-primary);
+            background: var(--color-surface);
+            box-shadow: 0 0 0 3px var(--color-primary-highlight);
+        }
+        
+        .arrow-card.match .arrow-spec.compatible {
+            background: var(--volt);
+            color: var(--ink);
+        }
+        
+        .arrow-spec {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+        }
+        
+        .arrow-price-value {
+            font-family: var(--font-mono);
+        }
+        
+        .pdf-btn {
+            background: transparent;
+            color: var(--color-text);
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: none;
+        }
+        
+        .pdf-btn:hover {
+            background: var(--color-surface-2);
+            border-color: var(--color-text);
+        }
+        
+        footer {
+            background: var(--color-surface);
+            margin-top: var(--space-12);
+            line-height: 1.7;
+        }
+        /* ── RESPONSIVE ── */
+        
+        @media (max-width: 980px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
+            .result-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 520px) {
+            header {
+                padding: var(--space-3) var(--space-4);
+            }
+            .hero-band {
+                padding: var(--space-8) var(--space-4) calc(var(--space-12) + var(--space-4));
+            }
+            .steps li {
+                font-size: 0.8rem;
+            }
+            .card {
+                padding: var(--space-5);
+            }
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            .hero-band {
+                display: none !important;
+            }
+            main {
+                margin-top: 0;
+            }
+            td.highlight {
+                background: #d6ff3d !important;
+                color: #000 !important;
+            }
+            .result-item.primary {
+                background: #fff !important;
+                color: #000 !important;
+                border: 1px solid #000 !important;
+            }
+            .result-item.primary .result-value,
+            .result-item.primary .result-label,
+            .result-item.primary .result-sub {
+                color: #000 !important;
+            }
+        }
+        /* ── Sélection de flèches ── */
+        
+        .select-btn {
+            width: 100%;
+            padding: 0.55rem var(--space-3);
+            border: 1.5px dashed var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            background: transparent;
+            transition: all var(--transition);
+        }
+        
+        .select-btn:hover {
+            border-color: var(--ink);
+            color: var(--color-text);
+            border-style: solid;
+        }
+        
+        .select-btn.on {
+            background: var(--ink);
+            border: 1.5px solid var(--ink);
+            color: var(--volt);
+        }
+        
+        [data-theme="dark"] .select-btn.on {
+            background: var(--volt);
+            border-color: var(--volt);
+            color: var(--ink);
+        }
+        
+        .arrow-card.selected {
+            border-color: var(--ink);
+            box-shadow: 0 0 0 3px var(--color-primary-highlight);
+        }
+        /* ── Fiche imprimable ── */
+        
+        #print-sheet {
+            display: none;
+        }
+        
+        @page {
+            size: A4;
+            margin: 14mm;
+        }
+        
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            html,
+            body {
+                background: #fff !important;
+                background-image: none !important;
+            }
+            .app,
+            .hero-band {
+                display: none !important;
+            }
+            #print-sheet {
+                display: block !important;
+                font-family: 'Inter', Arial, sans-serif;
+                color: #0c1322;
+                font-size: 10.5pt;
+                line-height: 1.5;
+            }
+            .ps-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 10pt;
+                border-bottom: 2px solid #0c1322;
+                margin-bottom: 16pt;
+            }
+            .ps-brand {
+                display: flex;
+                align-items: center;
+                gap: 10pt;
+            }
+            .ps-name {
+                font-family: 'Space Grotesk', 'Inter', sans-serif;
+                font-size: 20pt;
+                font-weight: 700;
+                letter-spacing: -0.03em;
+                line-height: 1.05;
+            }
+            .ps-tag {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 7pt;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: #51607a;
+            }
+            .ps-date {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 9pt;
+                color: #51607a;
+            }
+            .ps-hero {
+                background: #0c1322;
+                color: #fff;
+                border-radius: 12pt;
+                padding: 16pt 20pt;
+                border-left: 8pt solid #d6ff3d;
+            }
+            .ps-hero-label {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 8pt;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: #d6ff3d;
+            }
+            .ps-hero-value {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 48pt;
+                font-weight: 700;
+                letter-spacing: -0.04em;
+                line-height: 1.1;
+                color: #d6ff3d;
+            }
+            .ps-hero-sub {
+                font-size: 9.5pt;
+                color: rgba(255, 255, 255, 0.8);
+            }
+            .ps-params {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(90pt, 1fr));
+                gap: 8pt;
+                margin: 12pt 0 18pt;
+            }
+            .ps-param {
+                border: 1px solid #dde3ee;
+                border-radius: 8pt;
+                padding: 6pt 10pt;
+                background: #f6f8fc;
+            }
+            .ps-param span {
+                display: block;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 6.5pt;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                color: #51607a;
+            }
+            .ps-param strong {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 10pt;
+            }
+            .ps-title {
+                font-family: 'Space Grotesk', 'Inter', sans-serif;
+                font-size: 13pt;
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                margin-bottom: 8pt;
+                padding-left: 8pt;
+                border-left: 4pt solid #2f4bff;
+            }
+            .ps-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 9pt;
+            }
+            .ps-table th {
+                background: #0c1322;
+                color: #fff;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 6.5pt;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                text-align: left;
+                padding: 6pt 8pt;
+                position: static;
+            }
+            .ps-table td {
+                padding: 6pt 8pt;
+                border-bottom: 1px solid #dde3ee;
+                text-align: left;
+                white-space: normal;
+                border-right: none;
+                position: static;
+                background: transparent !important;
+                font-family: 'Inter', Arial, sans-serif;
+                font-size: 9pt;
+            }
+            .ps-table tr {
+                page-break-inside: avoid;
+            }
+            .ps-table td.ps-price {
+                font-family: 'JetBrains Mono', monospace;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .ps-empty {
+                color: #51607a;
+                font-style: italic;
+            }
+            .ps-foot {
+                margin-top: 16pt;
+                padding-top: 8pt;
+                border-top: 1px solid #dde3ee;
+                font-size: 7.5pt;
+                color: #51607a;
+            }
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 
 <body>
@@ -1071,36 +2010,54 @@
     </button>
         </header>
 
+        <!-- HERO -->
+        <section class="hero-band">
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <span class="eyebrow">Sélecteur de spine · Tir à l'arc</span>
+                    <h1>Le <em>bon spine</em> pour vos flèches, sans calcul.</h1>
+                    <p class="lead">Indiquez la puissance de votre arc et la longueur de vos flèches : obtenez la rigidité recommandée, puis la liste des flèches compatibles.</p>
+                    <ol class="steps">
+                        <li><b>1</b>Décrivez votre arc</li>
+                        <li><b>2</b>Lisez votre spine</li>
+                        <li><b>3</b>Choisissez vos flèches</li>
+                    </ol>
+                </div>
+                <div class="hero-visual" aria-hidden="true">
+                    <svg viewBox="0 0 400 190" fill="none">
+                        <!-- règle graduée -->
+                        <line x1="30" y1="150" x2="370" y2="150" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+                        <g stroke="rgba(255,255,255,0.35)" stroke-width="1.5">
+                            <line x1="30" y1="144" x2="30" y2="156"/><line x1="64" y1="147" x2="64" y2="153"/><line x1="98" y1="147" x2="98" y2="153"/>
+                            <line x1="132" y1="147" x2="132" y2="153"/><line x1="166" y1="144" x2="166" y2="156"/><line x1="200" y1="147" x2="200" y2="153"/>
+                            <line x1="234" y1="147" x2="234" y2="153"/><line x1="268" y1="147" x2="268" y2="153"/><line x1="302" y1="144" x2="302" y2="156"/>
+                            <line x1="336" y1="147" x2="336" y2="153"/><line x1="370" y1="144" x2="370" y2="156"/>
+                        </g>
+                        <g fill="rgba(255,255,255,0.6)" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">
+                            <text x="30" y="173">300</text><text x="166" y="173">500</text><text x="302" y="173">700</text><text x="370" y="173">900</text>
+                        </g>
+                        <!-- flèche au repos -->
+                        <line x1="30" y1="95" x2="360" y2="95" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-dasharray="5 5"/>
+                        <!-- flèche fléchie -->
+                        <path d="M 30 95 Q 195 45 360 95" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+                        <polygon points="360,95 343,86 347,95 343,104" fill="#d6ff3d"/>
+                        <path d="M 30 95 L 22 88 M 30 95 L 22 102" stroke="#d6ff3d" stroke-width="3" stroke-linecap="round"/>
+                        <!-- repère de flexion -->
+                        <line x1="195" y1="70" x2="195" y2="95" stroke="#d6ff3d" stroke-width="2"/>
+                        <circle cx="195" cy="70" r="5" fill="#d6ff3d"/>
+                        <text x="207" y="52" fill="#d6ff3d" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">flexion</text>
+                        <!-- curseur spine -->
+                        <path d="M 166 138 L 160 126 L 172 126 Z" fill="#d6ff3d"/>
+                    </svg>
+                    <div class="hero-caption"><span>Spine = rigidité du tube</span><span>Plus c'est bas, plus c'est rigide</span></div>
+                </div>
+            </div>
+        </section>
+
         <!-- MAIN -->
         <main>
             <div class="editorial-spread">
-                <!-- SPREAD GAUCHE : ÉDITORIAL & PARAMÈTRES (INSPIRÉ DE LA PAGE GAUCHE DU WIREFRAME) -->
                 <aside class="spread-col-left">
-                    <div class="editorial-banner">
-                        <div class="editorial-tag">Guide &amp; Configuration</div>
-                        <h1 style="font-family:var(--font-display);font-size:clamp(1.5rem, 1.2rem + 0.9vw, 2.1rem);font-weight:800;color:var(--color-text);line-height:1.15;margin-bottom:var(--space-2);">
-                            Choisissez la flèche idéale pour votre arc
-                        </h1>
-                        <p style="font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.5;">
-                            Configurez la géométrie de tir (puissance, allonge, masse de pointe) pour déterminer la flexibilité dynamique optimale.
-                        </p>
-
-                        <!-- Schéma géométrique inspiré du bloc d'illustration du wireframe -->
-                        <div class="editorial-schematic" aria-hidden="true">
-                            <svg viewBox="0 0 340 70" width="100%" height="70" fill="none">
-              <path d="M 20 35 Q 170 15 320 35" stroke="var(--color-primary)" stroke-width="2.5" stroke-dasharray="4 4" opacity="0.6"/>
-              <line x1="20" y1="35" x2="320" y2="35" stroke="var(--color-text)" stroke-width="2"/>
-              <!-- Pointe -->
-              <polygon points="320,35 305,30 308,35 305,40" fill="var(--color-accent)"/>
-              <!-- Nock -->
-              <line x1="20" y1="31" x2="16" y2="27" stroke="var(--color-accent)" stroke-width="2"/>
-              <line x1="20" y1="39" x2="16" y2="43" stroke="var(--color-accent)" stroke-width="2"/>
-              <!-- Labels -->
-              <text x="170" y="55" fill="var(--color-text-muted)" font-size="11" text-anchor="middle" font-weight="600">Longueur du tube / Allonge réelle</text>
-              <text x="170" y="16" fill="var(--color-primary)" font-size="11" text-anchor="middle" font-weight="700">Spine statique &amp; flexion</text>
-            </svg>
-                        </div>
-                    </div>
 
                     <!-- FORMULAIRE -->
                     <div class="card" id="form-card" style="margin-bottom:0;">
@@ -1231,9 +2188,9 @@
                         <div style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);margin-top:calc(-1 * var(--space-4));">Filtrez par prix, matériau et diamètre. Les flèches compatibles avec votre spine recommandé sont mises en évidence.</div>
 
                         <!-- PDF EXPORT -->
-                        <button class="pdf-btn" onclick="window.print()">
+                        <button class="pdf-btn" onclick="printSheet()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Exporter en PDF
+        Imprimer / PDF : mon spine + ma sélection <span id="sel-count"></span>
       </button>
 
                         <!-- RÉSUMÉ IMPRESSION -->
@@ -1297,11 +2254,14 @@
         </footer>
     </div>
 
+    <!-- FICHE D'IMPRESSION : spine + flèches choisies (affichée uniquement à l'impression) -->
+    <div id="print-sheet" aria-hidden="true"></div>
+
     <script>
         /* ──────────────────────────────────────────────
-           SPINE DATA (Easton-style, source: La Flèche Gasconne + Spine Paradox)
-           Format: { drawWeightRange: [min, max], bowType: 'recurve'|'compound', lengths: { 23:spine, 24:spine, ... } }
-           ────────────────────────────────────────────── */
+                   SPINE DATA (Easton-style, source: La Flèche Gasconne + Spine Paradox)
+                   Format: { drawWeightRange: [min, max], bowType: 'recurve'|'compound', lengths: { 23:spine, 24:spine, ... } }
+                   ────────────────────────────────────────────── */
 
         // Recurve spine table (lbs)
         // Source: Spine Paradox / Easton recurve selection
@@ -1936,7 +2896,9 @@
             container.innerHTML = arrows.map(a => {
                 const compat = spineCompatibility(a, recSpine);
                 const spineList = a.spines.join(', ');
-                const matchClass = compat.match ? ' match' : '';
+                const idx = ARROW_CATALOG.indexOf(a);
+                const isSel = selectedArrows.has(idx);
+                const matchClass = (compat.match ? ' match' : '') + (isSel ? ' selected' : '');
                 const compatBadge = compat.match ?
                     `<span class="arrow-spec compatible">${compat.label}</span>` :
                     `<span class="arrow-spec">${compat.label}</span>`;
@@ -1958,10 +2920,83 @@
           <span class="arrow-spec">Spines: ${spineList}</span>
           ${compatBadge}
         </div>
+        <button type="button" class="select-btn${isSel ? ' on' : ''}" aria-pressed="${isSel}" onclick="toggleArrow(${idx})">${isSel ? '✓ Dans ma sélection' : '+ Ajouter à ma sélection'}</button>
       </div>
     `;
             }).join('');
+            updateSelCount();
         }
+
+        /* ──────────── SÉLECTION DE FLÈCHES ──────────── */
+        const selectedArrows = new Set();
+
+        function toggleArrow(idx) {
+            if (selectedArrows.has(idx)) selectedArrows.delete(idx);
+            else selectedArrows.add(idx);
+            renderArrowList();
+        }
+
+        function updateSelCount() {
+            const el = document.getElementById('sel-count');
+            if (el) el.textContent = selectedArrows.size ? '(' + selectedArrows.size + ')' : '';
+        }
+
+        /* ──────────── FEUILLE D'IMPRESSION (spine + flèches choisies) ──────────── */
+        function updatePrintSheet() {
+            const el = document.getElementById('print-sheet');
+            if (!el) return;
+            const r = window._lastResult || {};
+            const logo = `<svg width="46" height="46" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="18" fill="#0c1322"/><path d="M10 8 Q6 19 10 30" stroke="#d6ff3d" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="8" x2="10" y2="30" stroke="#d6ff3d" stroke-width="1.5" stroke-linecap="round"/><line x1="10" y1="19" x2="30" y2="19" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M30 19 L26 16.5 L27.5 19 L26 21.5 Z" fill="#d6ff3d"/><path d="M10 19 L8 17 M10 19 L8 21" stroke="#d6ff3d" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+            const head = `
+      <div class="ps-head">
+        <div class="ps-brand">${logo}<div><div class="ps-name">FlèchOptim</div><div class="ps-tag">Sélecteur de spine · Tir à l'arc</div></div></div>
+        <div class="ps-date">${new Date().toLocaleDateString('fr-FR')}</div>
+      </div>`;
+            if (!r.spine) {
+                el.innerHTML = head + '<p class="ps-empty">Lancez d\'abord un calcul pour générer votre fiche.</p>';
+                return;
+            }
+            const bowLabel = r.bowType === 'recurve' ? 'Arc classique' : 'Arc à poulies';
+            const lengthCm = Math.round(r.lengthIn * 2.54);
+            const params = [
+                ['Type d\'arc', bowLabel],
+                ['Puissance', r.weight + ' lbs'],
+                r.speedFps != null ? ['Vitesse', r.speedFps + ' fps'] : null,
+                ['Allonge', r.lengthIn + '" (' + lengthCm + ' cm)'],
+                ['Poids de pointe', r.pointWeight + ' gr']
+            ].filter(Boolean).map(p => `<div class="ps-param"><span>${p[0]}</span><strong>${p[1]}</strong></div>`).join('');
+
+            let chosen = ARROW_CATALOG.filter((a, i) => selectedArrows.has(i));
+            let listTitle = 'Flèches choisies';
+            if (!chosen.length) {
+                chosen = ARROW_CATALOG.filter(a => spineCompatibility(a, r.spine).match);
+                listTitle = 'Flèches compatibles avec ce spine';
+            }
+            const rows = chosen.map(a => {
+                const c = spineCompatibility(a, r.spine);
+                return `<tr><td><strong>${a.brand}</strong> ${a.model}</td><td>${a.materialLabel}</td><td>Ø ${a.diameterMm} mm</td><td>${a.spines.join(', ')}</td><td>${c.label}</td><td class="ps-price">${a.priceEur.toFixed(2).replace('.', ',')} €</td></tr>`;
+            }).join('');
+            const table = chosen.length ?
+                `<table class="ps-table"><thead><tr><th>Flèche</th><th>Matériau</th><th>Diamètre</th><th>Spines</th><th>Compatibilité</th><th>Prix / tube</th></tr></thead><tbody>${rows}</tbody></table>` :
+                '<p class="ps-empty">Aucune flèche sélectionnée.</p>';
+
+            el.innerHTML = head + `
+      <div class="ps-hero">
+        <div class="ps-hero-label">Spine recommandé</div>
+        <div class="ps-hero-value">${r.spine}</div>
+        <div class="ps-hero-sub">${r.spine >= 400 ? 'Flèche souple' : 'Flèche rigide'} · puissance équivalente ${r.adjWeight.toFixed(1)} lbs</div>
+      </div>
+      <div class="ps-params">${params}</div>
+      <h2 class="ps-title">${listTitle}</h2>
+      ${table}
+      <p class="ps-foot">Résultat indicatif inspiré des tableaux fabricants — confirmez avec le tableau officiel du fabricant de votre flèche et un test de bare shaft. Prix indicatifs.</p>`;
+        }
+
+        function printSheet() {
+            updatePrintSheet();
+            window.print();
+        }
+        window.addEventListener('beforeprint', updatePrintSheet);
 
         /* ──────────── PRINT SUMMARY ──────────── */
         function updatePrintSummary() {
@@ -2258,7 +3293,7 @@
         (function() {
             const toggle = document.querySelector('[data-theme-toggle]');
             const root = document.documentElement;
-            let d = 'dark';
+            let d = 'light';
             root.setAttribute('data-theme', d);
 
             function updateIcon() {
